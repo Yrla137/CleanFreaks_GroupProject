@@ -1,0 +1,34 @@
+{
+  "name": "cleanfreaks_groupproject",
+  "version": "1.0.0",
+  "description": "Kunskapskontroll_DevOps_Testing_2",
+  "main": "index.js",
+"scripts": {
+  "test": "vitest run --coverage && npm run test:e2e",
+  "test:e2e": "vite build && npx playwright test",
+  "lint": "eslint src/",
+  "preview": "vite preview"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yrla137/CleanFreaks_GroupProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Yrla137/CleanFreaks_GroupProject/issues"
+  },
+  "homepage": "https://github.com/Yrla137/CleanFreaks_GroupProject#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.59.0",
+    "@vitest/coverage-v8": "^4.1.2",
+    "eslint": "^10.1.0",
+    "globals": "^17.4.0",
+    "jsdom": "^29.0.1",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  }
+}
