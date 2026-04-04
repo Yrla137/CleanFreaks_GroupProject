@@ -1,0 +1,103 @@
+
+
+
+:root {
+
+
+  /*--- COLOR ---*/
+
+  /* Använd färgerna såhär:
+  --dark-blue: för mörka bakgrunder med ljus text
+  --light-blue: för ljusa blå bakgrunder med mörk text
+
+  --white: för neutrala bakgrunder med mörk text
+  --eco-green: för ikoner, badges, accenter och statusmarkeringar.
+                Får inte användas på mörk bakgrund.
+  --highlight-pink: för highlights och viktiga accenter.
+                    Använd sparsamt, max enstaka element per sida.
+                    Får inte användas på mörk bakgrund.
+  */
+
+  --dark-blue: #0D3043;
+  --light-blue: #E0F1FA;
+  --white: #F7F7F7;
+  --eco-green: #007936;
+  --highlight-pink: #CC0052;
+
+  --text-on-dark: var(--light-blue);
+  --text-on-light: var(--dark-blue);
+
+
+
+  /*--- TYPOGRAPHY ---*/
+
+  --font-family-base: "Inter", sans-serif;
+  --font-family-heading: "Inter", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* H1 */
+  --h1-font-size: 48px;
+  --h1-line-height: 56px;
+  --h1-font-weight: var(--font-weight-bold);
+
+  /* H2 */
+  --h2-font-size: 32px;
+  --h2-line-height: 40px;
+  --h2-font-weight: var(--font-weight-bold);
+
+  /* H3 */
+  --h3-font-size: 24px;
+  --h3-line-height: 32px;
+  --h3-font-weight: var(--font-weight-semibold);
+
+  /* Body / Paragraph */
+  --p-font-size: 16px;
+  --p-line-height: 24px;
+  --p-font-weight: var(--font-weight-regular);
+
+  /* Link */
+  --link-font-size: 16px;
+  --link-line-height: 24px;
+  --link-font-weight: var(--font-weight-medium);
+  --link-text-decoration: underline;
+
+
+
+  /*--- SPACING & SHAPE ---*/
+
+  --border-radius: 4px;
+  --spacing-unit: 8px;
+
+  --space-1: calc(var(--spacing-unit) * 1); /* 8px */
+  --space-2: calc(var(--spacing-unit) * 2); /* 16px */
+  --space-3: calc(var(--spacing-unit) * 3); /* 24px */
+  --space-4: calc(var(--spacing-unit) * 4); /* 32px */
+  --space-5: calc(var(--spacing-unit) * 5); /* 40px */
+  --space-6: calc(var(--spacing-unit) * 6); /* 48px */
+
+
+  /* --- RESPONSIVE LAYOUT --- */
+    /* Mobile first:
+     All styling ska byggas för mobil först.
+     Desktop/tablet läggs till med min-width media queries. */
+
+  --max-width-web: 1200px;
+
+  /* Breakpoint:
+     Grundläggande brytpunkt från mobil till större skärm */
+  --breakpoint-md: 768px;
+
+
+
+  /*--- COMPONENT ---*/
+
+  --button-padding-y: 12px;
+  --button-padding-x: 20px;
+
+  --card-padding: var(--space-3);
+  --section-padding: var(--space-5);
+}
