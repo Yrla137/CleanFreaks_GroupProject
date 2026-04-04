@@ -1,11 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clean Freaks</title>
+
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    
+
+  <!-- HEADER -->
+  <header class="header">
+
+    <div class="top-bar">
+
+      <!-- Hamburgare -->
+      <button class="menu-btn" aria-label="Öppna meny">☰</button>
+
+      <!-- Logga -->
+      <div class="logo">
+        <a href="mainPage.html"></a>
+        <span>🧹</span>
+        <h1>Clean Freaks</h1>
+      </div>
+
+      <!-- Sök -->
+      <form class="search">
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Vad vill du städa?"
+        />
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+    </div>
+
+    <!-- MENY -->
+    <nav class="menu" hidden>
+      <ul>
+        <li><a href="#">Hem</a></li>
+        <li><a href="#">Blogginlägg</a></li>
+        <li><a href="#">Receptlista</a></li>
+        <li><a href="#">Om oss / Kontakta oss</a></li>
+        <li><a href="#">Kategorier</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <h2>Välj ett rum</h2>
+
+    <!-- ROOMS -->
+    <section class="rooms">
+      <div class="rooms-grid">
+
+        <button class="room" data-room-id="1" data-room-name="Kök">
+          <i class="fa-solid fa-kitchen-set"></i>
+          <span>Kök</span>
+        </button>
+
+        <button class="room" data-room-id="2" data-room-name="Badrum">
+          <i class="fa-solid fa-bath"></i>
+          <span>Badrum</span>
+        </button>
+
+        <button class="room" data-room-id="3" data-room-name="Vardagsrum">
+          <i class="fa-solid fa-couch"></i>
+          <span>Vardagsrum</span>
+        </button>
+
+        <button class="room" data-room-id="4" data-room-name="Sovrum">
+          <i class="fa-solid fa-bed"></i>
+          <span>Sovrum</span>
+        </button>
+
+        <button class="room" data-room-id="5" data-room-name="Tvättstuga">
+          <i class="fa-solid fa-sink"></i>
+          <span>Tvättstuga</span>
+        </button>
+
+        <button class="room" data-room-id="6" data-room-name="Utomhus">
+          <i class="fa-solid fa-umbrella-beach"></i>
+          <span>Utomhus</span>
+        </button>
+
+      </div>
+    </section>
+
+
+    <!-- SÖKRESULTAT -->
+    <section id="search-results" hidden>
+      <h2>Sökresultat</h2>
+      <div class="results-grid"></div>
+    </section>
+
+
+    <!-- AREAS -->
+    <section class="areas-section" aria-live="polite" hidden>
+      <h2 id="selected-room-title"></h2>
+      <p id="areas-message"></p>
+
+      <div id="areas-container" class="areas-grid"></div>
+    </section>
+
+
+    <!-- EXTRA -->
+    <section class="extra">
+      <div class="card">
+        <h3>Populära städrecept</h3>
+      </div>
+
+      <div class="card">
+        <h3>Senaste blogginlägg</h3>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="mainPage.js" defer></script>
+
 </body>
 </html>
