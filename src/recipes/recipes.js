@@ -58,12 +58,6 @@ function renderRecipe(recipe) {
     document.getElementById("recipes-time").innerText = `⏱️ ${recipe.time_minutes} min`;
     document.getElementById("recipes-difficulty").innerText = `📊 ${recipe.difficulty}`;
 
-    // STEG
-    const stepsList = document.getElementById("recipes-steps");
-    if (recipe.recipe_steps) {
-        const sortedSteps = [...recipe.recipe_steps].sort((a, b) => a.step_order - b.step_order);
-        stepsList.innerHTML = sortedSteps.map(s => `<li>${s.step_order}. ${s.instruction}</li>`).join("");
-    }
 
     // BILD 
     if (recipe.image) {
@@ -95,6 +89,12 @@ function renderRecipe(recipe) {
             const unitName = item.units ? item.units.name : "";
             return `<li>${item.amount || ""} ${unitName} ${ingName}</li>`;
         }).join("");
+    }
+    // STEG
+    const stepsList = document.getElementById("recipes-steps");
+    if (recipe.recipe_steps) {
+        const sortedSteps = [...recipe.recipe_steps].sort((a, b) => a.step_order - b.step_order);
+        stepsList.innerHTML = sortedSteps.map(s => `<li>${s.step_order}. ${s.instruction}</li>`).join("");
     }
 }
 
