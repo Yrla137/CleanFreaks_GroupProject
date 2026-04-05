@@ -22,7 +22,8 @@ function fetchFullRecipe(recipeId) {
     const query = `?select=*,` +
         `recipe_steps(*),` +
         `recipe_tools(*,tools(*)),` +
-        `recipe_ingredients(*,ingredients(*),units(*))` +
+        `recipe_ingredients(*,ingredients(*),units(*)),` +
+        `recipe_problems(*,problems(*,areas_problems(*,areas(*,room_area(*,rooms(*))))))` +
         `&recipe_id=eq.${recipeId}`;
 
     fetch(BASE_URL + query, {
@@ -75,26 +76,82 @@ function renderRecipe(recipe) {
 
     // TOOLS
     if (recipe.recipe_tools && recipe.recipe_tools.length > 0) {
-        toolsList.innerHTML = recipe.recipe_tools.map(item => {
-            // Om 'tools' finns som ett objekt inuti kopplingstabellen
-            const name = item.tools ? item.tools.name : "Okänt verktyg";
-            return `<li>${name}</li>`;
-        }).join("");
+        toolsList.innerHTML = `
+            <h3>Verktyg</h3>
+            <ul>
+                ${recipe.recipe_tools.map(item => `<li>${item.tools?.name || "Verktyg"}</li>`).join("")}
+            </ul>
+        `;
+    } else {
+        toolsList.innerHTML = ""; // Helt tomt om inga verktyg finns
     }
 
     // INGREDIENSER
     if (recipe.recipe_ingredients && recipe.recipe_ingredients.length > 0) {
-        ingredientsList.innerHTML = recipe.recipe_ingredients.map(item => {
-            const ingName = item.ingredients ? item.ingredients.name : "Okänd ingrediens";
-            const unitName = item.units ? item.units.name : "";
+        ingredientsList.innerHTML = `
+            <h3>Ingredienser</h3>
+            <ul>
+                ${recipe.recipe_ingredients.map(item => {
+            const ingName = item.ingredients?.name || '';
+            const unitName = item.units?.name || '';
             return `<li>${item.amount || ""} ${unitName} ${ingName}</li>`;
-        }).join("");
+        }).join("")}
+            </ul>
+        `;
+    } else {
+        ingredientsList.innerHTML = "";
     }
+
     // STEG
-    const stepsList = document.getElementById("recipes-steps");
-    if (recipe.recipe_steps) {
+    if (recipe.recipe_steps && recipe.recipe_steps.length > 0) {
         const sortedSteps = [...recipe.recipe_steps].sort((a, b) => a.step_order - b.step_order);
-        stepsList.innerHTML = sortedSteps.map(s => `<li>${s.step_order}. ${s.instruction}</li>`).join("");
+        stepsList.innerHTML = `
+            <h3>Så gör du</h3>
+            <ol>
+                ${sortedSteps.map(s => `<li>${s.instruction}</li>`).join("")}
+            </ol>
+        `;
+    } else {
+        stepsList.innerHTML = "";
+    }
+
+    // TAGGAR
+    const tagsContainer = document.getElementById("recipe-tags");
+    if (recipe.recipe_problems && recipe.recipe_problems.length > 0) {
+
+        let tagHTML = `<div class="tag-group">`;
+
+        const uniqueTags = new Set();
+
+        recipe.recipe_problems.forEach(rp => {
+            const prob = rp.problems;
+            if (prob) {
+                uniqueTags.add({ name: prob.name, type: 'problem' });
+
+                prob.areas_problems?.forEach(ap => {
+                    if (ap.areas) {
+                        uniqueTags.add({ name: ap.areas.name, type: 'area' });
+
+                        ap.areas.room_area?.forEach(ra => {
+                            if (ra.rooms) uniqueTags.add({ name: ra.rooms.name, type: 'room' });
+                        });
+                    }
+                });
+            }
+        });
+
+        // Rita ut taggarna länkar
+        Array.from(uniqueTags).forEach(tag => {
+            tagHTML += `
+            <a href="search.html?q=${encodeURIComponent(tag.name)}" class="tag tag-${tag.type}">
+                ${tag.name}
+            </a>`;
+        });
+
+        tagHTML += `</div>`;
+        tagsContainer.innerHTML = tagHTML;
+    } else {
+        tagsContainer.innerHTML = "";
     }
 }
 
