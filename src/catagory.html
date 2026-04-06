@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanFreaks - Kategorier</title>
-    <link rel="stylesheet" href="category.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rums-kategorier – Clean Freak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="category.css" />
 </head>
 <body>
 
-    <header>
-        <nav>
-            <a href="mainPage.html">Hem</a>
-            <a href="catagory.html" class="active">Kategorier</a>
-            <a href="blog.html">Blogg</a>
-        </nav>
-    </header>
+  <!-- Header placeholder – ersätt med gruppens gemensamma header -->
+  <div id="header-placeholder">[ Header från gruppen klistras in här ]</div>
 
-    <main class="container">
-        <section class="search-wrapper">
-            <h1>Vad behöver du hjälp med?</h1>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Sök efter problem (t.ex. vinfläckar)...">
-                <button id="search-button">Sök</button>
-            </div>
-        </section>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Rums-kategorier</h1>
+    <p>Välj ett rum för att se areas och problem</p>
+  </section>
 
-        <nav id="breadcrumb" class="breadcrumb">
-            <span onclick="displayAllRooms()">Start</span>
-        </nav>
+  <!-- Room tabs -->
+  <div class="room-tabs" id="room-tabs">
+    <div class="spinner"></div>
+  </div>
 
-        <section id="category-content">
-            <div class="loader">Laddar kategorier...</div>
-            </section>
-    </main>
+  <!-- Selected room title -->
+  <div class="room-title-section" id="room-title-section" style="display:none;">
+    <h2 id="room-title-text">Laddar...</h2>
+  </div>
 
-    <script type="module" src="category.js"></script>
+  <!-- Areas grid -->
+  <section class="areas-section">
+    <div class="areas-grid" id="areas-grid">
+      <p class="status-msg">Välj ett rum ovan för att se areas.</p>
+    </div>
+  </section>
+
+  <script src="category.js"></script>
 </body>
 </html>
