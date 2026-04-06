@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rums-kategorier – Clean Freak</title>
+  <title>Kategorisida – Clean Freak</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="category.css" />
 </head>
@@ -12,28 +12,20 @@
   <!-- Header placeholder – ersätt med gruppens gemensamma header -->
   <div id="header-placeholder">[ Header från gruppen klistras in här ]</div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>Rums-kategorier</h1>
-    <p>Välj ett rum för att se areas och problem</p>
-  </section>
+  <main class="main-content">
 
-  <!-- Room tabs -->
-  <div class="room-tabs" id="room-tabs">
-    <div class="spinner"></div>
-  </div>
+    <!-- Tillbaka-knapp -->
+    <a href="mainPage.html" class="back-btn">← Gå till startsidan</a>
 
-  <!-- Selected room title -->
-  <div class="room-title-section" id="room-title-section" style="display:none;">
-    <h2 id="room-title-text">Laddar...</h2>
-  </div>
+    <!-- Rumsnamn -->
+    <h2 id="room-title">Laddar...</h2>
 
-  <!-- Areas grid -->
-  <section class="areas-section">
+    <!-- Areas grid -->
     <div class="areas-grid" id="areas-grid">
-      <p class="status-msg">Välj ett rum ovan för att se areas.</p>
+      <div class="spinner"></div>
     </div>
-  </section>
+
+  </main>
 
   <script src="category.js"></script>
 </body>

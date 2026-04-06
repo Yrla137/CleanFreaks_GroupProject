@@ -6,63 +6,55 @@ const headers = {
   'Authorization': `Bearer ${SUPABASE_KEY}`
 };
 
-// ── Hjälpfunktion för fetch ──
 async function fetchJSON(url) {
   const res = await fetch(url, { headers });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-// ── Hämta alla rum och bygg tabs ──
-async function loadRooms() {
-  const tabsEl = document.getElementById('room-tabs');
+// ── Läs room_id från URL: category.html?room_id=1 ──
+function getRoomIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('room_id');
+}
+
+// ── Hämta rumsnamn och ladda areas ──
+async function init() {
+  const roomId = getRoomIdFromURL();
+  const titleEl = document.getElementById('room-title');
+  const grid = document.getElementById('areas-grid');
+
+  if (!roomId) {
+    titleEl.textContent = 'Inget rum valt';
+    grid.innerHTML = '<p class="status-msg">Gå tillbaka till startsidan och välj ett rum.</p>';
+    return;
+  }
 
   try {
+    // Hämta rumsnamn
     const rooms = await fetchJSON(
-      `${SUPABASE_URL}/rest/v1/rooms?select=room_id,name&order=name`
+      `${SUPABASE_URL}/rest/v1/rooms?select=name&room_id=eq.${roomId}`
     );
 
-    tabsEl.innerHTML = '';
-
     if (!rooms.length) {
-      tabsEl.innerHTML = '<p class="status-msg">Inga rum hittades i databasen.</p>';
+      titleEl.textContent = 'Rum hittades ej';
+      grid.innerHTML = '<p class="status-msg">Det valda rummet finns inte i databasen.</p>';
       return;
     }
 
-    rooms.forEach((room, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'room-tab' + (i === 0 ? ' active' : '');
-      btn.textContent = room.name;
-      btn.dataset.roomId = room.room_id;
-      btn.addEventListener('click', () => selectRoom(room.room_id, room.name, btn));
-      tabsEl.appendChild(btn);
-    });
+    titleEl.textContent = rooms[0].name;
 
-    // Välj första rummet automatiskt
-    selectRoom(rooms[0].room_id, rooms[0].name, tabsEl.querySelector('.room-tab'));
+    // Hämta areas kopplade till rummet
+    await loadAreas(roomId, grid);
 
   } catch (err) {
-    tabsEl.innerHTML = `<p class="status-msg">Kunde inte ladda rum: ${err.message}</p>`;
+    titleEl.textContent = 'Fel uppstod';
+    grid.innerHTML = `<p class="status-msg">Kunde inte ladda data: ${err.message}</p>`;
   }
 }
 
-// ── Välj ett rum → uppdatera titel och ladda areas ──
-function selectRoom(roomId, roomName, clickedBtn) {
-  document.querySelectorAll('.room-tab').forEach(b => b.classList.remove('active'));
-  clickedBtn.classList.add('active');
-
-  const titleSection = document.getElementById('room-title-section');
-  titleSection.style.display = 'block';
-  document.getElementById('room-title-text').innerHTML = `<span>${roomName}</span>`;
-
-  loadAreas(roomId);
-}
-
-// ── Hämta areas kopplade till valt rum ──
-async function loadAreas(roomId) {
-  const grid = document.getElementById('areas-grid');
-  grid.innerHTML = '<div class="spinner"></div>';
-
+// ── Hämta areas för valt rum ──
+async function loadAreas(roomId, grid) {
   try {
     const roomAreas = await fetchJSON(
       `${SUPABASE_URL}/rest/v1/room_area?select=area_id&room_id=eq.${roomId}`
@@ -107,17 +99,15 @@ async function fetchProblemsForArea(areaId) {
 
     const problemIds = links.map(l => l.problem_id);
 
-    const problems = await fetchJSON(
-      `${SUPABASE_URL}/rest/v1/problems?select=problem_id,name&problem_id=in.(${problemIds.join(',')})&order=name`
+    return await fetchJSON(
+      `${SUPABASE_URL}/rest/v1/problems?select=name&problem_id=in.(${problemIds.join(',')})&order=name`
     );
-
-    return problems;
   } catch {
     return [];
   }
 }
 
-// ── Bygg area-kort med problems popup ──
+// ── Bygg area-kort med problems popup vid hover ──
 function createAreaCard(area, problems) {
   const card = document.createElement('div');
   card.className = 'area-card';
@@ -152,4 +142,4 @@ function createAreaCard(area, problems) {
 }
 
 // ── Starta ──
-loadRooms();
+init();
