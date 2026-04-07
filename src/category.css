@@ -5,16 +5,15 @@
 }
 
 :root {
-  --blue:       #1565C0;
-  --blue-light: #e8f1fc;
-  --blue-mid:   #bbdefb;
-  --accent:     #2196F3;
-  --bg:         #dceefb;
-  --white:      #ffffff;
-  --text:       #1a2a3a;
-  --text-soft:  #5a7a9a;
-  --radius:     14px;
-  --shadow:     0 4px 24px rgba(21,101,192,.13);
+  --blue:      #1565C0;
+  --blue-mid:  #bbdefb;
+  --accent:    #2196F3;
+  --bg:        #dceefb;
+  --white:     #ffffff;
+  --text:      #1a2a3a;
+  --text-soft: #5a7a9a;
+  --radius:    14px;
+  --shadow:    0 4px 24px rgba(21,101,192,.13);
 }
 
 body {
@@ -35,91 +34,25 @@ body {
   justify-content: center;
   color: var(--text-soft);
   font-size: .9rem;
-  letter-spacing: .04em;
 }
 
-/* ── HERO ── */
-.hero {
-  padding: 3.5rem 2rem 1.5rem;
-  text-align: center;
-}
-
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  font-weight: 900;
-  color: var(--blue);
-  line-height: 1.05;
-  letter-spacing: -.02em;
-}
-
-.hero p {
-  margin-top: .7rem;
-  color: var(--text-soft);
-  font-size: 1.05rem;
-  font-weight: 300;
-}
-
-/* ── ROOM TABS ── */
-.room-tabs {
-  display: flex;
-  gap: .6rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 1.5rem 2rem .5rem;
-}
-
-.room-tab {
-  background: var(--white);
-  border: 2px solid transparent;
-  border-radius: 999px;
-  padding: .5rem 1.3rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: .95rem;
-  font-weight: 500;
-  color: var(--text);
-  cursor: pointer;
-  transition: all .22s ease;
-  box-shadow: 0 2px 8px rgba(21,101,192,.08);
-}
-
-.room-tab:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.room-tab.active {
-  background: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
-  box-shadow: 0 4px 16px rgba(21,101,192,.25);
-}
-
-/* ── ROOM TITLE ── */
-.room-title-section {
-  padding: 2.5rem 2rem .8rem;
+/* ── MAIN ── */
+.main-content {
   max-width: 1100px;
   margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
 }
 
-.room-title-section h2 {
+/* ── RUMSNAMN H2 ── */
+#room-title {
   font-family: 'Playfair Display', serif;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text);
-}
-
-.room-title-section h2 span {
   color: var(--blue);
+  margin-bottom: 1.5rem;
 }
 
 /* ── AREAS GRID ── */
-.areas-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: .5rem 2rem 4rem;
-}
-
 .areas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -150,7 +83,7 @@ body {
   color: var(--text);
 }
 
-/* ── PROBLEMS POPUP ── */
+/* ── PROBLEMS POPUP (visas vid hover) ── */
 .problems-popup {
   display: none;
   position: absolute;
@@ -175,27 +108,6 @@ body {
   display: block;
 }
 
-.problems-popup p {
-  font-size: .85rem;
-  color: var(--text-soft);
-  font-weight: 400;
-  margin-bottom: .3rem;
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-}
-
-.problems-popup p::before {
-  content: '•';
-  color: var(--accent);
-  font-size: 1rem;
-}
-
-.problems-popup .no-problems {
-  font-style: italic;
-  color: #aaa;
-}
-
 .problems-popup .popup-title {
   font-size: .75rem;
   font-weight: 500;
@@ -205,12 +117,30 @@ body {
   margin-bottom: .5rem;
 }
 
+.problems-popup p {
+  font-size: .85rem;
+  color: var(--text-soft);
+  margin-bottom: .3rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.problems-popup p::before {
+  content: '•';
+  color: var(--accent);
+}
+
+.problems-popup .no-problems {
+  font-style: italic;
+  color: #aaa;
+}
+
 /* ── LOADING / ERROR ── */
 .status-msg {
-  text-align: center;
-  padding: 3rem;
   color: var(--text-soft);
   font-size: 1rem;
+  padding: 2rem 0;
 }
 
 .spinner {
@@ -220,7 +150,7 @@ body {
   border-top-color: var(--blue);
   border-radius: 50%;
   animation: spin .7s linear infinite;
-  margin: 2rem auto;
+  margin: 2rem 0;
 }
 
 @keyframes spin {
