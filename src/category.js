@@ -12,13 +12,11 @@ async function fetchJSON(url) {
   return res.json();
 }
 
-// ── Läs room_id från URL: category.html?room_id=1 ──
 function getRoomIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('room_id');
 }
 
-// ── Hämta rumsnamn och ladda areas ──
 async function init() {
   const roomId = getRoomIdFromURL();
   const titleEl = document.getElementById('room-title');
@@ -31,7 +29,6 @@ async function init() {
   }
 
   try {
-    // Hämta rumsnamn
     const rooms = await fetchJSON(
       `${SUPABASE_URL}/rest/v1/rooms?select=name&room_id=eq.${roomId}`
     );
@@ -43,8 +40,6 @@ async function init() {
     }
 
     titleEl.textContent = rooms[0].name;
-
-    // Hämta areas kopplade till rummet
     await loadAreas(roomId, grid);
 
   } catch (err) {
@@ -53,7 +48,6 @@ async function init() {
   }
 }
 
-// ── Hämta areas för valt rum ──
 async function loadAreas(roomId, grid) {
   try {
     const roomAreas = await fetchJSON(
@@ -73,7 +67,6 @@ async function loadAreas(roomId, grid) {
 
     grid.innerHTML = '';
 
-    // Hämta problems för alla areas parallellt
     const problemsPerArea = await Promise.all(
       areas.map(area => fetchProblemsForArea(area.area_id))
     );
@@ -88,7 +81,6 @@ async function loadAreas(roomId, grid) {
   }
 }
 
-// ── Hämta problems kopplade till en area ──
 async function fetchProblemsForArea(areaId) {
   try {
     const links = await fetchJSON(
@@ -107,10 +99,17 @@ async function fetchProblemsForArea(areaId) {
   }
 }
 
-// ── Bygg area-kort med problems popup vid hover ──
 function createAreaCard(area, problems) {
   const card = document.createElement('div');
   card.className = 'area-card';
+
+  // ── Z-index fix: lyfts upp vid hover så popup ej hamnar bakom andra kort ──
+  card.addEventListener('mouseenter', () => {
+    card.style.zIndex = '200';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.zIndex = '';
+  });
 
   const title = document.createElement('h3');
   title.textContent = area.name;
@@ -141,5 +140,4 @@ function createAreaCard(area, problems) {
   return card;
 }
 
-// ── Starta ──
 init();
