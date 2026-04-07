@@ -55,8 +55,10 @@ main {
 #recipes-info {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
+    width: 100%;
 }
 
 #recipes-tools-ingredients {
@@ -106,6 +108,11 @@ main {
     background-color: var(--white);
     color: var(--text-on-light);
     border: 2px solid var(--dark-blue);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 #recipes-eco-friendly {
