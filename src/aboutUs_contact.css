@@ -1,0 +1,88 @@
+@import url("./styleguide.css");
+
+body {
+    background-color: var(--light-blue);
+    color: var(--text-on-light);
+    font-family: var(--font-family-base);
+    font-size: var(--p-font-size);
+    line-height: var(--p-line-height);
+    font-weight: var(--font-weight-regular);
+    margin: 0 auto;
+    padding: 0;
+    max-width: var(--max-width-web);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+}
+
+h2 {
+    margin: 0;
+    font-size: var(--h2-font-size);
+    line-height: var(--h2-line-height);
+    font-weight: var(--font-weight-bold);
+}
+
+.about-us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.contact-us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.contact-us form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 75%;
+    max-width: 500px;
+}
+
+.contact-us form input,
+.contact-us form textarea {
+    width: 100%;
+    /* padding: 10px; */
+    border-radius: var(--border-radius);
+    border: 2px solid var(--dark-blue);
+    background-color: var(--white);
+    color: var(--text-on-light);
+    font-size: var(--p-font-size);
+    line-height: var(--p-line-height);
+    font-weight: var(--font-weight-regular);
+}
+
+button {
+    padding: var(--button-padding-y) var(--button-padding-x);
+    border-radius: var(--border-radius);
+    background-color: var(--highlight-pink);
+    color: var(--text-on-dark);
+    font-size: var(--p-font-size);
+    line-height: var(--p-line-height);
+    font-weight: var(--font-weight-regular);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+button:hover {
+    background-color: var(--dark-blue);
+    color: var(--text-on-dark);
+    font-weight: var(--font-weight-medium);
+}
