@@ -243,6 +243,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    // HAMBURGARMENY //
+    const menuBtn = document.querySelector(".menu-btn");
+    const menu = document.querySelector(".menu");
+    // Skapar variabler för meny-knappen och själva menyn
+
+    menuBtn.addEventListener("click", () => {
+        menu.hidden = !menu.hidden;
+        // Toggle på "hidden" attributet → visar/döljer menyn
+        if (!menu.hidden) {
+            menuBtn.setAttribute("aria-label", "Stäng meny");
+        } else {
+            menuBtn.setAttribute("aria-label", "Öppna meny");
+        }
+    });
+
+    const links = menu.querySelectorAll("a");
+    // Alla länkar i menyn
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            menu.hidden = true;
+            menuBtn.setAttribute("aria-label", "Öppna meny");
+            // När man klickar på en länk i menyn → döljs menyn och aria-label ändras tillbaka till "Öppna meny"
+        });
+    });
+
     const searchForm = document.querySelector(".search");
     const searchInput = document.querySelector("#search-input");
 
@@ -337,8 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             div.addEventListener("click", () => {
                 // körs när man klickar på ett resultat
 
-                window.location.href = `category.html?type=${item.type}_id=${item.id}`;
-                // window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${item.title}`;
+                window.location.href = `category.html?${item.type}_id=${item.id}`;
                 // Skickar användaren till en room/area/problem, osv. sida
                 // Skickar med ID → nästa sida kan läsa av det
             });
