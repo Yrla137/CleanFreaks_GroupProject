@@ -1,4 +1,4 @@
-// 1. DOM-ELEMENT
+// DOM-ELEMENT
 const title = document.getElementById("recipes-title");
 const image = document.getElementById("recipes-image");
 const description = document.getElementById("recipes-description");
@@ -10,13 +10,12 @@ const toolsList = document.getElementById("recipes-tools");
 const ingredientsList = document.getElementById("recipes-ingredients");
 const stepsList = document.getElementById("recipes-steps");
 
-// 2. KONFIGURATION
+// KONFIGURATION
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 const BASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1/recipes";
 
 /**
  * Hämta ett specifikt recept
- * @param {number} recipeId
  */
 function fetchFullRecipe(recipeId) {
     const query = `?select=*,` +
@@ -39,6 +38,8 @@ function fetchFullRecipe(recipeId) {
         .then(data => {
             if (data.length > 0) {
                 renderRecipe(data[0]);
+                // Anropa relaterade efter att huvudreceptet är klart
+                fetchRelatedRecipes(data[0].recipe_id);
             } else {
                 console.error("Receptet hittades inte");
             }
@@ -54,84 +55,57 @@ function fetchFullRecipe(recipeId) {
 function renderRecipe(recipe) {
     console.log("Fullständig data från Supabase:", recipe);
 
-    document.getElementById("recipes-title").innerText = recipe.title || "";
-    document.getElementById("recipes-description").innerText = recipe.description || "";
-    document.getElementById("recipes-time").innerText = `⏱️ ${recipe.time_minutes} min`;
-    document.getElementById("recipes-difficulty").innerText = `📊 ${recipe.difficulty}`;
+    title.innerText = recipe.title || "";
+    description.innerText = recipe.description || "";
+    time.innerText = `⏱️ ${recipe.time_minutes} min`;
+    difficulty.innerText = `📊 ${recipe.difficulty}`;
 
-
-    // BILD 
     if (recipe.image) {
         image.innerHTML = `<img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%;">`;
     } else {
         image.innerHTML = "";
     }
 
-    // ECO-FRIENDLY
     if (recipe.eco_friendly) {
         ecoFriendly.innerHTML = `<span class="eco-friendly">🌿 Miljövänligt val</span>`;
     } else {
         ecoFriendly.innerHTML = "";
     }
 
-    // TOOLS
     if (recipe.recipe_tools && recipe.recipe_tools.length > 0) {
-        toolsList.innerHTML = `
-            <h3>Verktyg</h3>
-            <ul>
-                ${recipe.recipe_tools.map(item => `<li>${item.tools?.name || "Verktyg"}</li>`).join("")}
-            </ul>
-        `;
+        toolsList.innerHTML = `<h3>Verktyg</h3><ul>${recipe.recipe_tools.map(item => `<li>${item.tools?.name || "Verktyg"}</li>`).join("")}</ul>`;
     } else {
-        toolsList.innerHTML = ""; // Helt tomt om inga verktyg finns
+        toolsList.innerHTML = "";
     }
 
-    // INGREDIENSER
     if (recipe.recipe_ingredients && recipe.recipe_ingredients.length > 0) {
-        ingredientsList.innerHTML = `
-            <h3>Ingredienser</h3>
-            <ul>
-                ${recipe.recipe_ingredients.map(item => {
+        ingredientsList.innerHTML = `<h3>Ingredienser</h3><ul>${recipe.recipe_ingredients.map(item => {
             const ingName = item.ingredients?.name || '';
             const unitName = item.units?.name || '';
             return `<li>${item.amount || ""} ${unitName} ${ingName}</li>`;
-        }).join("")}
-            </ul>
-        `;
+        }).join("")}</ul>`;
     } else {
         ingredientsList.innerHTML = "";
     }
 
-    // STEG
     if (recipe.recipe_steps && recipe.recipe_steps.length > 0) {
         const sortedSteps = [...recipe.recipe_steps].sort((a, b) => a.step_order - b.step_order);
-        stepsList.innerHTML = `
-            <h3>Så gör du</h3>
-            <ol>
-                ${sortedSteps.map(s => `<li>${s.instruction}</li>`).join("")}
-            </ol>
-        `;
+        stepsList.innerHTML = `<h3>Så gör du</h3><ol>${sortedSteps.map(s => `<li>${s.instruction}</li>`).join("")}</ol>`;
     } else {
         stepsList.innerHTML = "";
     }
 
-    // TAGGAR
     const tagsContainer = document.getElementById("recipe-tags");
     if (recipe.recipe_problems && recipe.recipe_problems.length > 0) {
-
         let tagHTML = `<div class="tag-group">`;
-
         const uniqueTags = new Set();
-
         recipe.recipe_problems.forEach(rp => {
             const prob = rp.problems;
             if (prob) {
                 uniqueTags.add({ name: prob.name, type: 'problem' });
-
                 prob.areas_problems?.forEach(ap => {
                     if (ap.areas) {
                         uniqueTags.add({ name: ap.areas.name, type: 'area' });
-
                         ap.areas.room_area?.forEach(ra => {
                             if (ra.rooms) uniqueTags.add({ name: ra.rooms.name, type: 'room' });
                         });
@@ -139,15 +113,9 @@ function renderRecipe(recipe) {
                 });
             }
         });
-
-        // Rita ut taggarna länkar
         Array.from(uniqueTags).forEach(tag => {
-            tagHTML += `
-            <a href="search.html?q=${encodeURIComponent(tag.name)}" class="tag tag-${tag.type}">
-                ${tag.name}
-            </a>`;
+            tagHTML += `<a href="search.html?q=${encodeURIComponent(tag.name)}" class="tag tag-${tag.type}">${tag.name}</a>`;
         });
-
         tagHTML += `</div>`;
         tagsContainer.innerHTML = tagHTML;
     } else {
@@ -155,11 +123,37 @@ function renderRecipe(recipe) {
     }
 }
 
-// Här skickar vi in ID:t på det recept vi vill visa (t.ex. 1)
+function fetchRelatedRecipes(currentId) {
+    const query = `?select=title,image,slug,recipe_id&recipe_id=neq.${currentId}&limit=3`;
+    fetch(BASE_URL + query, {
+        headers: {
+            "apikey": API_KEY,
+            "Authorization": `Bearer ${API_KEY}`
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            renderRelated(data);
+        })
+        .catch(err => console.error("Kunde inte hämta relaterade recept:", err));
+}
+
+function renderRelated(recipes) {
+    const container = document.getElementById("related-recipes-container");
+    if (!container) return;
+    if (recipes.length === 0) {
+        container.innerHTML = "<p>Inga fler recept hittades.</p>";
+        return;
+    }
+    container.innerHTML = recipes.map(recipe => `
+        <a href="recipe.html?name=${recipe.slug}" class="related-card">
+            <div class="related-img-wrapper">
+                <img src="${recipe.image}" alt="${recipe.title}">
+            </div>
+            <h4>${recipe.title}</h4>
+        </a>
+    `).join("");
+}
+
+// STARTA ALLT
 fetchFullRecipe(1);
-
-
-
-
-
-
