@@ -14,16 +14,14 @@ const stepsList = document.getElementById("recipes-steps");
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 const BASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1/recipes";
 
-/**
- * Hämta ett specifikt recept
- */
-function fetchFullRecipe(recipeId) {
+
+function fetchFullRecipe(slug) {
     const query = `?select=*,` +
         `recipe_steps(*),` +
         `recipe_tools(*,tools(*)),` +
         `recipe_ingredients(*,ingredients(*),units(*)),` +
         `recipe_problems(*,problems(*,areas_problems(*,areas(*,room_area(*,rooms(*))))))` +
-        `&recipe_id=eq.${recipeId}`;
+        `&slug=eq.${slug}`;
 
     fetch(BASE_URL + query, {
         headers: {
@@ -38,9 +36,9 @@ function fetchFullRecipe(recipeId) {
         .then(data => {
             if (data.length > 0) {
                 renderRecipe(data[0]);
-                // Anropa relaterade efter att huvudreceptet är klart
                 fetchRelatedRecipes(data[0].recipe_id);
             } else {
+                document.querySelector("main").innerHTML = "<h2>Hoppsan! Receptet hittades inte.</h2>";
                 console.error("Receptet hittades inte");
             }
         })
@@ -155,5 +153,11 @@ function renderRelated(recipes) {
     `).join("");
 }
 
-// STARTA ALLT
-fetchFullRecipe(1);
+const urlParams = new URLSearchParams(window.location.search);
+const recipeSlug = urlParams.get('name'); // Hämtar det som står efter ?name=
+
+if (recipeSlug) {
+    fetchFullRecipe(recipeSlug);
+} else {
+    console.error("Ingen slug hittades i URL:en");
+}

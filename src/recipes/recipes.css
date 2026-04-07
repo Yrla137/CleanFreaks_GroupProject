@@ -223,7 +223,7 @@ main {
 
     #recipes-info {
         grid-area: descr;
-        margin-top: 125px;
+        margin-top: 140px;
     }
 
     #recipes-tools-ingredients {
