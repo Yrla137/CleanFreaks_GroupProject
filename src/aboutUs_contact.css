@@ -15,11 +15,17 @@ body {
 main {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     margin: 20px;
-    align-items: center;
+    align-content: center;
     justify-content: center;
     gap: var(--space-5);
+    padding-left: 10%;
+    padding-right: 10%;
+
+    @media (min-width: 768px) {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
 }
 
 h2 {
@@ -35,6 +41,7 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
+
 }
 
 .contact-us {
@@ -51,8 +58,11 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    width: 75%;
-    max-width: 500px;
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: 500px;
+    }
 }
 
 .contact-us form input,
@@ -66,6 +76,8 @@ h2 {
     font-size: var(--p-font-size);
     line-height: var(--p-line-height);
     font-weight: var(--font-weight-regular);
+
+
 }
 
 button {
