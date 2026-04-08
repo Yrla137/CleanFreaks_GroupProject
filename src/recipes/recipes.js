@@ -35,8 +35,8 @@ function fetchFullRecipe(slug) {
         })
         .then(data => {
             if (data.length > 0) {
+                renderRecipe(data[0]);
                 fetchRelatedRecipes(data[0].recipe_id);
-                data.map(recipe => renderRecipe(recipe));
             } else {
                 document.querySelector("main").innerHTML = "<h2>Hoppsan! Receptet hittades inte.</h2>";
                 console.error("Receptet hittades inte");
@@ -51,6 +51,7 @@ function fetchFullRecipe(slug) {
  * Funktion som placerar ut datan i HTML
  */
 function renderRecipe(recipe) {
+    console.log("Fullständig data från Supabase:", recipe);
 
     title.innerText = recipe.title || "";
     description.innerText = recipe.description || "";
@@ -120,9 +121,8 @@ function renderRecipe(recipe) {
     }
 }
 
-/** RELATED RECIPES **/
 function fetchRelatedRecipes(currentId) {
-    const query = `?select=title,image,slug,recipe_id&recipe_id=neq.${currentId}&limit=12`;
+    const query = `?select=title,image,slug,recipe_id&recipe_id=neq.${currentId}&limit=3`;
     fetch(BASE_URL + query, {
         headers: {
             "apikey": API_KEY,
@@ -131,16 +131,12 @@ function fetchRelatedRecipes(currentId) {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            const shuffled = data.sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, 3);
-            renderRelated(selected);
+            renderRelated(data);
         })
         .catch(err => console.error("Kunde inte hämta relaterade recept:", err));
 }
 
 function renderRelated(recipes) {
-    console.log(recipes);
     const container = document.getElementById("related-recipes-container");
     if (!container) return;
     if (recipes.length === 0) {
@@ -148,7 +144,7 @@ function renderRelated(recipes) {
         return;
     }
     container.innerHTML = recipes.map(recipe => `
-        <a href="recipes.html?name=${recipe.slug}" class="related-card">
+        <a href="recipe.html?name=${recipe.slug}" class="related-card">
             <div class="related-img-wrapper">
                 <img src="${recipe.image}" alt="${recipe.title}">
             </div>
@@ -158,7 +154,7 @@ function renderRelated(recipes) {
 }
 
 const urlParams = new URLSearchParams(window.location.search);
-const recipeSlug = urlParams.get('name'); // Hämtar det som står efter ?name=
+const recipeSlug = urlParams.get('name');
 
 if (recipeSlug) {
     fetchFullRecipe(recipeSlug);
