@@ -229,6 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     roomIconsBtns.forEach(button => {
     button.addEventListener("click", () => {
         // Lägger på en click-event på varje knapp
+
         const roomId = button.dataset.roomId;
         // Läser ID från data-attributet
         const roomName = button.dataset.roomName;
@@ -236,37 +237,41 @@ document.addEventListener("DOMContentLoaded", () => {
         // Om knappen har exempelvis data-room-id="1" → button.dataset.roomId blir "1" (en sträng).
 
         window.location.href = `category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
+        // window.location.href = `category.html?type=room&id=${roomId}&title=${encodeURIComponent(roomName)}`;
         // Navigerar till sidan med room_id i querystringen
         // encodeURIComponent gör att specialtecken och mellanslag i texten blir giltiga i URL.
         // Exempel: "Tvättstuga & Kök" → "Tv%C3%A4ttstuga%20%26%20K%C3%B6k"
-        });
     });
+});
 
 
-    // HAMBURGARMENY //
-    const menuBtn = document.querySelector(".menu-btn");
-    const menu = document.querySelector(".menu");
-    // Skapar variabler för meny-knappen och själva menyn
+    // // HAMBURGARMENY //
+    // const menuBtn = document.querySelector(".menu-btn");
+    // const menu = document.querySelector(".menu");
+    // // Skapar variabler för meny-knappen och själva menyn
 
-    menuBtn.addEventListener("click", () => {
-        menu.hidden = !menu.hidden;
-        // Toggle på "hidden" attributet → visar/döljer menyn
-        if (!menu.hidden) {
-            menuBtn.setAttribute("aria-label", "Stäng meny");
-        } else {
-            menuBtn.setAttribute("aria-label", "Öppna meny");
-        }
-    });
+    // menuBtn.addEventListener("click", () => {
+    //     menu.classList.toggle("active");
+    //     // Lägger på/tar bort klassen "active" på både knappen och menyn när man klickar på knappen
+    //     if (menu.classList.contains("active")) {
+    //     // Om menyn har klassen "active" → aria-label = "Stäng meny"
+    //         menuBtn.setAttribute("aria-label", "Stäng meny");
+    //     } else {
+    //         menuBtn.setAttribute("aria-label", "Öppna meny");
+    //     // Om menyn inte har klassen "active" → aria-label = "Öppna meny"
+    //     }
+    // });
 
-    const links = menu.querySelectorAll("a");
-    // Alla länkar i menyn
-    links.forEach(link => {
-        link.addEventListener("click", () => {
-            menu.hidden = true;
-            menuBtn.setAttribute("aria-label", "Öppna meny");
-            // När man klickar på en länk i menyn → döljs menyn och aria-label ändras tillbaka till "Öppna meny"
-        });
-    });
+    // const links = menu.querySelectorAll("a");
+    // // Alla länkar i menyn
+    // links.forEach(link => {
+    //     link.addEventListener("click", () => {
+    //         menu.classList.remove("active");
+    //         menuBtn.setAttribute("aria-label", "Öppna meny");
+    //         // När man klickar på en länk i menyn → döljs menyn och aria-label ändras tillbaka till "Öppna meny"
+    //     });
+    // });
+
 
     const searchForm = document.querySelector(".search");
     const searchInput = document.querySelector("#search-input");
@@ -285,8 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = searchInput.value;
         // Det användaren skriver
 
-        if (!allData) return;
-        // SÄKERHETSCHECK! Om API inte är klart → gör inget
+        if (!allData){
+            console.warn("Datan laddas fortfarande, vänligen vänta...");
+            return;
+        }
+        // SÄKERHETSCHECK! Om API inte är klart → varna användaren och stoppa funktionen
 
         const results = searchInData(allData, query);
 
@@ -300,6 +308,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hela sektionen (för att visa/dölja)
     const resultsContainer = document.querySelector(".results-grid");
     // Där vi stoppar resultaten
+
+    const popularRecipesContainer = document.querySelector(".popular-recipes");
+    const blogPostsContainer = document.querySelector(".blog-posts");
+    // Variabler för att visa populära recept och blogginlägg på startsidan
 
     // Här skapas typeLables för att i renderResults kunna visa sökresultaten på följande sätt
     const typeLabels = {
@@ -321,6 +333,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "Tvättstuga": "fa-solid fa-sink",
         "Utomhus": "fa-solid fa-umbrella-beach"
     };
+
+    // POPULÄRA-RECEPT FUNKTION //
+    function startRecipeSlideshow(data) {
+ 
+    if (!recipes || recipes.length === 0) {
+        popularRecipesContainer.innerHTML = "<p>Inga populära recept att visa</p>";
+        return;
+    }
+    }
+
+    // BLOGGINLÄGG FUNKTION //
+    function renderRandomBlogPosts(data) {
+        if (!blog_posts || blog_posts.length === 0) {
+            blogPostsContainer.innerHTML = "<p>Inga blogginlägg att visa</p>";
+            return;
+        }
+    }
+
 
 
     // RENDER FUNKTION //
@@ -359,13 +389,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${item.description ? `<p>${item.description}</p>` : ""}
             `;
 
-            div.addEventListener("click", () => {
-                // körs när man klickar på ett resultat
 
-                window.location.href = `category.html?${item.type}_id=${item.id}`;
-                // Skickar användaren till en room/area/problem, osv. sida
-                // Skickar med ID → nästa sida kan läsa av det
-            });
+            div.addEventListener("click", () => {
+            // körs när man klickar på ett resultat
+
+            window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
+            // window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
+            // Skickar användaren till en room/area/problem, osv. sida
+            // Skickar med ID → nästa sida kan läsa av det
+});
 
             // Lägg in innhållet i DOM
             resultsContainer.appendChild(div);
