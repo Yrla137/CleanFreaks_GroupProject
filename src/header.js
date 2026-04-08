@@ -1,4 +1,4 @@
-    // HAMBURGARMENY //
+/*     // HAMBURGARMENY //
     const menuBtn = document.querySelector(".menu-btn");
     const menu = document.querySelector(".menu");
     // Skapar variabler för meny-knappen och själva menyn
@@ -23,4 +23,29 @@
             menuBtn.setAttribute("aria-label", "Öppna meny");
             // När man klickar på en länk i menyn → döljs menyn och aria-label ändras tillbaka till "Öppna meny"
         });
-    });
+        }); */
+        
+        const menuBtn = document.querySelector(".menu-btn");
+const menu = document.querySelector(".menu");
+
+menuBtn.addEventListener("click", () => {
+  const isOpen = menuBtn.classList.toggle("active");
+  menu.hidden = !isOpen;
+  menuBtn.setAttribute("aria-expanded", isOpen);
+});
+
+document.addEventListener("click", (e) => {
+  const clickedInsideMenu = menu.contains(e.target);
+  const clickedButton = menuBtn.contains(e.target);
+
+  if (!clickedInsideMenu && !clickedButton) {
+    menu.hidden = true;
+    menuBtn.classList.remove("active");
+    menuBtn.setAttribute("aria-expanded", "false");
+  }
+});
+
+        document.querySelector(".icon").addEventListener("click", () => {
+            // kör sökning
+            
+        });
