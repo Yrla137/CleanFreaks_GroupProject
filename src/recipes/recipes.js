@@ -158,7 +158,7 @@ function renderRelated(recipes) {
 }
 
 const urlParams = new URLSearchParams(window.location.search);
-const recipeSlug = urlParams.get('name'); // Hämtar det som står efter ?name=
+const recipeSlug = urlParams.get('name');
 
 if (recipeSlug) {
     fetchFullRecipe(recipeSlug);
