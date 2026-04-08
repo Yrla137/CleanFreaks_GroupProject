@@ -12,7 +12,7 @@
   <!-- StyleGuide -->
   <link rel="stylesheet" href="styleguide.css" />
   <!-- Egen CSS -->
-  <link rel="stylesheet" href="mainPage.css" />
+  <link rel="stylesheet" href="mainPage/mainPage.css" />
 </head>
 <body>
 
@@ -39,7 +39,7 @@
           id="search-input"
           placeholder="Vad vill du städa?"
         />
-        <button type="submit">
+        <button type="submit" aria-label="Sök">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
@@ -49,11 +49,10 @@
     <!-- MENY -->
     <nav class="menu" hidden>
       <ul>
-        <li><a href="#">Hem</a></li>
-        <li><a href="#">Blogginlägg</a></li>
-        <li><a href="#">Receptlista</a></li>
-        <li><a href="#">Om oss / Kontakta oss</a></li>
-        <li><a href="#">Kategorier</a></li>
+        <li><a href="mainPage.html">Hem</a></li>
+        <li><a href="blog.html">Blogginlägg</a></li>
+        <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+        <li><a href="category.html">Kategorier</a></li>
       </ul>
     </nav>
 
@@ -164,8 +163,8 @@
     </footer>
   </div>
 
-  <script type="module" src="mainPage_dom.js"></script>
-  <script src="header.js" defer></script>
+<script type="module" src="mainPage/mainPage_dom.js"></script>
+<script src="header.js" defer></script>
 
 </body>
 </html>

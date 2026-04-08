@@ -41,10 +41,7 @@ describe("Integration: search + DOM", () => {
 
     });
 
+
     test("uppdatera DOM när ett rum klickas på", () => {
-    document.querySelector(".results-grid").innerHTML = "";
-
-    const room = searchInData(mockData, "Kök");
     });
-
 });
