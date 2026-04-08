@@ -214,6 +214,14 @@ footer p {
     font-weight: var(--p-font-weight);
 }
 
+.logo-style {
+    font-family: var(--logo-font);
+    font-weight: var(--logo-weight);
+    font-style: var(--logo-style);
+    color: var(--logo-light);
+    font-size: var(--h2-font-size);
+}
+
 footer ul {
     list-style: none;
     padding: 0;
