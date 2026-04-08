@@ -27,7 +27,13 @@
   --text-on-dark: var(--light-blue);
   --text-on-light: var(--dark-blue);
 
-
+/*LOGOTYPE*/
+  --logo-green: #5faa81;
+  --logo-light:#9cffc8;
+  --logo-font: "Cookie", cursive;
+  --logo-weight: 400;
+  --logo-style: normal;
+  
 
   /*--- TYPOGRAPHY ---*/
 
