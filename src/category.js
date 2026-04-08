@@ -91,8 +91,9 @@ async function fetchProblemsForArea(areaId) {
 
     const problemIds = links.map(l => l.problem_id);
 
+    // Hämta problem_id OCH name så vi kan länka vidare
     return await fetchJSON(
-      `${SUPABASE_URL}/rest/v1/problems?select=name&problem_id=in.(${problemIds.join(',')})&order=name`
+      `${SUPABASE_URL}/rest/v1/problems?select=problem_id,name&problem_id=in.(${problemIds.join(',')})&order=name`
     );
   } catch {
     return [];
@@ -103,13 +104,9 @@ function createAreaCard(area, problems) {
   const card = document.createElement('div');
   card.className = 'area-card';
 
-  // ── Z-index fix: lyfts upp vid hover så popup ej hamnar bakom andra kort ──
-  card.addEventListener('mouseenter', () => {
-    card.style.zIndex = '200';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.zIndex = '';
-  });
+  // Z-index fix – popup hamnar inte bakom andra kort
+  card.addEventListener('mouseenter', () => { card.style.zIndex = '200'; });
+  card.addEventListener('mouseleave', () => { card.style.zIndex = ''; });
 
   const title = document.createElement('h3');
   title.textContent = area.name;
@@ -125,9 +122,12 @@ function createAreaCard(area, problems) {
 
   if (problems.length) {
     problems.forEach(p => {
-      const el = document.createElement('p');
-      el.textContent = p.name;
-      popup.appendChild(el);
+      // Varje problem är nu en klickbar länk till recipes.html
+      const link = document.createElement('a');
+      link.className = 'problem-link';
+      link.href = `recipes.html?problem_id=${p.problem_id}`;
+      link.textContent = p.name;
+      popup.appendChild(link);
     });
   } else {
     const none = document.createElement('p');

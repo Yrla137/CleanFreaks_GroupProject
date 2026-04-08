@@ -1,8 +1,3 @@
-/* ── RESET ── */
-/* =============================================
-   category.css – använder variabler från styleguide.css
-   ============================================= */
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -57,12 +52,11 @@ body {
   text-decoration: var(--link-text-decoration);
   border: 2px solid var(--dark-blue);
   border-radius: var(--border-radius);
-  transition: background .2s, color .2s;
+  transition: background-color .2s, color .2s;
 }
 
 .back-btn:hover {
   background-color: var(--dark-blue);
-  transition: background-color .2s, color .2s;
   color: var(--text-on-dark);
   text-decoration: none;
 }
@@ -115,8 +109,9 @@ body {
 .problems-popup {
   display: none;
   position: absolute;
-  top: calc(100% + var(--space-1));
+  top: calc(100% - 4px); 
   left: 0;
+  padding-top: calc(var(--space-2) + 4px); 
   z-index: 200;
   background-color: var(--white);
   border: 2px solid var(--dark-blue);
@@ -145,10 +140,35 @@ body {
   margin-bottom: var(--space-1);
 }
 
-.problems-popup p {
+/* ── PROBLEM LÄNK (klickbar) ── */
+.problem-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   font-size: var(--p-font-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--p-line-height);
+  color: var(--text-on-light);
+  text-decoration: none;
+  padding: 2px 0;
+  margin-bottom: var(--space-1);
+  transition: color .15s;
+}
+
+.problem-link::before {
+  content: '•';
+  color: var(--eco-green);
+  flex-shrink: 0;
+}
+
+.problem-link:hover {
+  color: var(--dark-blue);
+  text-decoration: underline;
+}
+
+/* ── INGA PROBLEMS ── */
+.problems-popup p {
+  font-size: var(--p-font-size);
   color: var(--text-on-light);
   margin-bottom: var(--space-1);
   display: flex;
@@ -156,13 +176,7 @@ body {
   gap: var(--space-1);
 }
 
-.problems-popup p::before {
-  content: '•';
-  color: var(--eco-green);
-  font-size: 1rem;
-}
-
-.problems-popup .no-problems {
+.no-problems {
   font-style: italic;
   color: #888;
 }
@@ -187,7 +201,6 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
 
 /* ── FOOTER ── */
 .footer-background {
@@ -264,7 +277,7 @@ footer {
   opacity: .7;
 }
 
-/* ── RESPONSIVE – mobile first ── */
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .areas-grid {
     grid-template-columns: repeat(2, 1fr);
