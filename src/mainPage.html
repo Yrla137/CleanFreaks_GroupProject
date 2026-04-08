@@ -4,10 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clean Freaks</title>
-
   <!-- Font-Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- StyleGuide -->
+  <link rel="stylesheet" href="styleguide.css" />
+  <!-- Egen CSS -->
+  <link rel="stylesheet" href="mainPage.css" />
 </head>
+
 <body>
 
   <!-- HEADER -->
@@ -15,14 +19,15 @@
 
     <div class="top-bar">
 
-      <!-- Hamburgare -->
+      <!-- Hamburgarmeny -->
       <button class="menu-btn" aria-label="Öppna meny">☰</button>
 
       <!-- Logga -->
       <div class="logo">
-        <a href="mainPage.html"></a>
-        <span>🧹</span>
-        <h1>Clean Freaks</h1>
+        <a href="mainPage.html">
+          <span>🧹</span>
+          <h1>Clean Freaks</h1>
+        </a>
       </div>
 
       <!-- Sök -->
@@ -40,7 +45,7 @@
     </div>
 
     <!-- MENY -->
-    <nav class="menu" hidden>
+    <nav class="menu">
       <ul>
         <li><a href="#">Hem</a></li>
         <li><a href="#">Blogginlägg</a></li>
@@ -100,15 +105,6 @@
     <section id="search-results" hidden>
       <h2>Sökresultat</h2>
       <div class="results-grid"></div>
-    </section>
-
-
-    <!-- AREAS -->
-    <section class="areas-section" aria-live="polite" hidden>
-      <h2 id="selected-room-title"></h2>
-      <p id="areas-message"></p>
-
-      <div id="areas-container" class="areas-grid"></div>
     </section>
 
 
