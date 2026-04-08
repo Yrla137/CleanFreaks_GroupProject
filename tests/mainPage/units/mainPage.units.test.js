@@ -1,10 +1,11 @@
 import { describe, test, expect } from "vitest";
 import { searchInData } from "../../src/mainPage_logic.js";
 
+// Mockdata för testerna //
   const mockData = {
             rooms: [
-                { name: "Kök", room_id: 1 },
-                { name: "Badrum", room_id: 2 }
+                { type: "Kök", room_id: 1 },
+                { type: "Badrum", room_id: 2 }
             ],
             areas: [],
             problems: [],
@@ -22,9 +23,9 @@ describe("searchInData", () => {
     });
 
     test("ska hitta rum med matchande namn", () => {
-        let results = searchInData(mockData, "Kök");
-        expect(results).toEqual([
-        { type: "rooms", data: { name: "Kök", room_id: 1 } }
+    let results = searchInData(mockData, "Kök");
+    expect(results).toEqual([
+        { type: "room", title: "Kök", id: 1 }
         ]);
     });
 

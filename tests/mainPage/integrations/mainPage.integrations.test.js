@@ -1,5 +1,6 @@
 import { searchInData } from "../../src/mainPage_logic.js";
 import { displaySearchResults } from "../../src/mainPage_dom.js";
+import { expect } from "vitest";
 
 describe("Integration: search + DOM", () => {
 
@@ -43,5 +44,19 @@ describe("Integration: search + DOM", () => {
 
 
     test("uppdatera DOM när ett rum klickas på", () => {
+    document.querySelector(".results-grid").innerHTML = "";
+
+    const results = searchInData(mockData, "Kök");
+    displaySearchResults(results);
+
+    const searchResult = document.querySelector("#search-results");
+    const firstResult = searchResult.querySelector(".result-card");
+
+    delete window.location;
+    window.location = { href: "" };
+    firstResult.click();
+
+    expect(searchResult.hidden).toBe(false);
+    expect(window.location.href).toContain("category.html?room_id=1");
     });
 });

@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("MainPage E2E", () => {
 
   test("sökfunktion returnerar korrekt resultat / testar båda typer av sökningar", async ({ page }) => {
-    await page.goto("http://localhost:5500/mainPage.html");
+    await page.goto("http://localhost:5500/src/mainPage.html");
     await expect(page.locator(".search")).toBeVisible();
 
     await page.fill("#search-input", "Kök");
