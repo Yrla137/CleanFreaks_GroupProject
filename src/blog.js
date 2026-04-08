@@ -5,6 +5,8 @@
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo"
   );
 
+  /* test push */
+
   async function loadPosts() {
     const { data, error } = await supabase
       .from("blog_posts")
@@ -124,7 +126,7 @@ async function filterPosts(categoryId) {
     console.error("Filter error:", error);
     return;
   }
-renderPosts(data);
+
 }
 
   loadPosts();
