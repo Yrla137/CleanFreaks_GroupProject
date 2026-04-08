@@ -1,7 +1,73 @@
+<<<<<<< HEAD
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── STYLEGUIDE VARIABLER ── */
+:root {
+  --dark-blue: #0D3043;
+  --light-blue: #E0F1FA;
+  --white: #F7F7F7;
+  --eco-green: #007936;
+  --highlight-pink: #CC0052;
+
+  --text-on-dark: var(--light-blue);
+  --text-on-light: var(--dark-blue);
+
+  --font-family-base: "Inter", sans-serif;
+  --font-family-heading: "Inter", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --h1-font-size: 48px;
+  --h1-line-height: 56px;
+  --h1-font-weight: var(--font-weight-bold);
+
+  --h2-font-size: 32px;
+  --h2-line-height: 40px;
+  --h2-font-weight: var(--font-weight-bold);
+
+  --h3-font-size: 24px;
+  --h3-line-height: 32px;
+  --h3-font-weight: var(--font-weight-semibold);
+
+  --p-font-size: 16px;
+  --p-line-height: 24px;
+  --p-font-weight: var(--font-weight-regular);
+
+  --link-font-size: 16px;
+  --link-line-height: 24px;
+  --link-font-weight: var(--font-weight-medium);
+  --link-text-decoration: underline;
+
+  --border-radius: 4px;
+  --spacing-unit: 8px;
+
+  --space-1: calc(var(--spacing-unit) * 1); /* 8px */
+  --space-2: calc(var(--spacing-unit) * 2); /* 16px */
+  --space-3: calc(var(--spacing-unit) * 3); /* 24px */
+  --space-4: calc(var(--spacing-unit) * 4); /* 32px */
+  --space-5: calc(var(--spacing-unit) * 5); /* 40px */
+  --space-6: calc(var(--spacing-unit) * 6); /* 48px */
+
+  --max-width-web: 1200px;
+  --breakpoint-md: 768px;
+
+  --button-padding-y: 12px;
+  --button-padding-x: 20px;
+
+  --card-padding: var(--space-3);
+  --section-padding: var(--space-5);
+}
+
+/* ── RESET ── */
+=======
 /* =============================================
    category.css – använder variabler från styleguide.css
    ============================================= */
 
+>>>>>>> main
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -13,7 +79,11 @@ body {
   font-size: var(--p-font-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--p-line-height);
+<<<<<<< HEAD
+  background: var(--light-blue);
+=======
   background-color: var(--light-blue);
+>>>>>>> main
   color: var(--text-on-light);
   min-height: 100vh;
   display: flex;
@@ -22,7 +92,11 @@ body {
 
 /* ── HEADER PLACEHOLDER ── */
 #header-placeholder {
+<<<<<<< HEAD
+  background: var(--dark-blue);
+=======
   background-color: var(--dark-blue);
+>>>>>>> main
   color: var(--text-on-dark);
   padding: 0 var(--space-3);
   height: 70px;
@@ -36,10 +110,15 @@ body {
 /* ── MAIN ── */
 .main-content {
   max-width: var(--max-width-web);
+<<<<<<< HEAD
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--section-padding);
+=======
   width: 100%;
   margin: 0 auto;
   padding: var(--space-4) var(--space-3) var(--section-padding);
   flex: 1;
+>>>>>>> main
 }
 
 /* ── TILLBAKA-KNAPP ── */
@@ -47,7 +126,11 @@ body {
   display: inline-block;
   margin-bottom: var(--space-3);
   padding: var(--button-padding-y) var(--button-padding-x);
+<<<<<<< HEAD
+  background: transparent;
+=======
   background-color: transparent;
+>>>>>>> main
   color: var(--dark-blue);
   font-family: var(--font-family-base);
   font-size: var(--link-font-size);
@@ -56,11 +139,19 @@ body {
   text-decoration: var(--link-text-decoration);
   border: 2px solid var(--dark-blue);
   border-radius: var(--border-radius);
+<<<<<<< HEAD
+  transition: background .2s, color .2s;
+}
+
+.back-btn:hover {
+  background: var(--dark-blue);
+=======
   transition: background-color .2s, color .2s;
 }
 
 .back-btn:hover {
   background-color: var(--dark-blue);
+>>>>>>> main
   color: var(--text-on-dark);
   text-decoration: none;
 }
@@ -86,7 +177,11 @@ body {
 /* ── AREA CARD ── */
 .area-card {
   position: relative;
+<<<<<<< HEAD
+  background: var(--white);
+=======
   background-color: var(--white);
+>>>>>>> main
   border-radius: var(--border-radius);
   border: 2px solid transparent;
   padding: var(--card-padding);
@@ -116,7 +211,11 @@ body {
   top: calc(100% + var(--space-1));
   left: 0;
   z-index: 200;
+<<<<<<< HEAD
+  background: var(--white);
+=======
   background-color: var(--white);
+>>>>>>> main
   border: 2px solid var(--dark-blue);
   border-radius: var(--border-radius);
   padding: var(--space-2);
@@ -157,6 +256,10 @@ body {
 .problems-popup p::before {
   content: '•';
   color: var(--eco-green);
+<<<<<<< HEAD
+  font-size: 1rem;
+=======
+>>>>>>> main
 }
 
 .problems-popup .no-problems {
@@ -185,6 +288,8 @@ body {
   to { transform: rotate(360deg); }
 }
 
+<<<<<<< HEAD
+=======
 /* ── FOOTER ── */
 .footer-background {
   background-color: var(--dark-blue);
@@ -260,6 +365,7 @@ footer {
   opacity: .7;
 }
 
+>>>>>>> main
 /* ── RESPONSIVE – mobile first ── */
 @media (max-width: 768px) {
   .areas-grid {

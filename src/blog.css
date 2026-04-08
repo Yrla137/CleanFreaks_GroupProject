@@ -1,6 +1,5 @@
- body {
+body {
     padding: 0;
-    margin: 0;
   background-color: var(--light-blue);
   font-family: var(--font-family-base);
     color: var(--text-on-light);
@@ -9,7 +8,6 @@
 
 main {
    width: 90%;
-   margin: 0 auto;
 }
 
 h1 {
@@ -24,7 +22,6 @@ h2 {
     font-size: var(--h2-font-size);
     line-height: var(--h2-line-height);
     font-weight: var(--h2-font-weight);
-    padding-left: var(--space-3);
 }
 
 h3 {
@@ -49,7 +46,7 @@ p {
     margin-bottom: var(--space-3);
 }
 
-#posts a {
+a {
      font-family: var(--font-family-base);
     font-size: var(--link-font-size);
     line-height: var(--link-line-height);
@@ -58,7 +55,7 @@ p {
     color: var(--text-on-light);
 }
 
-#posts a:hover {
+a:hover {
     color: var(--highlight-pink);
 }
 
@@ -80,6 +77,11 @@ p {
    padding-top: var(--space-3);
 }
 
+header, footer {
+  background-color: var(--white);
+  height: 60px;
+}
+
 .blog-categories li {
     list-style: none;
     margin-bottom: var(--space-3);
@@ -91,7 +93,6 @@ p {
     padding: var(--space-3);
     border-radius: var(--border-radius);
     margin-bottom: var(--space-3);
-    margin: var(--space-2);
 }
 
 .blog-categories button {
@@ -112,58 +113,6 @@ p {
 }
 
 
-/* *************FOOTER**************** */
-footer {
-    background-color: var(--dark-blue);
-    color: var(--text-on-dark); 
-}
-
-footer h4 {
-    font-family: var(--font-family-heading);
-    font-size: var(--h4-font-size);
-    line-height: var(--h4-line-height);
-    font-weight: var(--h3-font-weight);
-}   
-
-footer p {
-    font-family: var(--font-family-base);
-    font-size: var(--p-font-size);
-    line-height: var(--p-line-height);
-    font-weight: var(--p-font-weight);
-}
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: var(--space-1);
-    color: var(--text-on-dark);
-}
-
-footer a {
-    font-family: var(--font-family-base);
-    font-size: var(--link-font-size);
-    line-height: var(--link-line-height);
-    font-weight: var(--link-font-weight);
-    text-decoration: var(--link-text-decoration);
-    color: var(--text-on-dark);}
-
-.footer-header {
-    text-align: left;
-    padding: var(--space-2);
-}
-
-.footer-container {
-    display: flex;
-    flex-direction: column;
-    padding-left: calc(var(--space-6) * 2);
-}
-   
-.footer-bottom {
-    text-align: right;
-    padding: var(--space-2);
-}
-
-
 
 @media (min-width: 768px) {
     
@@ -171,18 +120,5 @@ footer a {
         max-width: var(--max-width-web);
         margin: 0 auto;
     }
-
-    /* *************FOOTER**************** */
-
-    footer {
-        max-width: var(--max-width-web);
-        margin: 0 auto; 
-   }
-
-    .footer-container {
-        flex-direction: row;
-        justify-content: space-around;
-        margin: 0 auto;
-  }
 
 }
