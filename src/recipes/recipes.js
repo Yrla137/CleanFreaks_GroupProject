@@ -1,21 +1,9 @@
-// DOM-ELEMENT
-const title = document.getElementById("recipes-title");
-const image = document.getElementById("recipes-image");
-const description = document.getElementById("recipes-description");
-const time = document.getElementById("recipes-time");
-const difficulty = document.getElementById("recipes-difficulty");
-const ecoFriendly = document.getElementById("recipes-eco-friendly");
-
-const toolsList = document.getElementById("recipes-tools");
-const ingredientsList = document.getElementById("recipes-ingredients");
-const stepsList = document.getElementById("recipes-steps");
-
 // KONFIGURATION
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 const BASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1/recipes";
 
 
-function fetchFullRecipe(slug) {
+export function fetchFullRecipe(slug) {
     const query = `?select=*,` +
         `recipe_steps(*),` +
         `recipe_tools(*,tools(*)),` +
@@ -23,7 +11,7 @@ function fetchFullRecipe(slug) {
         `recipe_problems(*,problems(*,areas_problems(*,areas(*,room_area(*,rooms(*))))))` +
         `&slug=eq.${slug}`;
 
-    fetch(BASE_URL + query, {
+    return fetch(BASE_URL + query, {
         headers: {
             "apikey": API_KEY,
             "Authorization": `Bearer ${API_KEY}`
@@ -38,8 +26,10 @@ function fetchFullRecipe(slug) {
                 renderRecipe(data[0]);
                 fetchRelatedRecipes(data[0].recipe_id);
             } else {
-                document.querySelector("main").innerHTML = "<h2>Hoppsan! Receptet hittades inte.</h2>";
-                console.error("Receptet hittades inte");
+                const mainContainer = document.querySelector("main") || document.getElementById("main-content");
+                if (mainContainer) {
+                    mainContainer.innerHTML = "<h2>Hoppsan! Receptet hittades inte.</h2>";
+                } console.error("Receptet hittades inte");
             }
         })
         .catch(error => {
@@ -49,9 +39,21 @@ function fetchFullRecipe(slug) {
 
 /**
  * Funktion som placerar ut datan i HTML
- */
-function renderRecipe(recipe) {
+*/
+export function renderRecipe(recipe) {
     console.log("Fullständig data från Supabase:", recipe);
+    const title = document.getElementById("recipes-title");
+    const image = document.getElementById("recipes-image");
+    const description = document.getElementById("recipes-description");
+    const time = document.getElementById("recipes-time");
+    const difficulty = document.getElementById("recipes-difficulty");
+    const ecoFriendly = document.getElementById("recipes-eco-friendly");
+
+    const toolsList = document.getElementById("recipes-tools");
+    const ingredientsList = document.getElementById("recipes-ingredients");
+    const stepsList = document.getElementById("recipes-steps");
+
+    if (!title) return;
 
     title.innerText = recipe.title || "";
     description.innerText = recipe.description || "";
@@ -144,7 +146,7 @@ function renderRelated(recipes) {
         return;
     }
     container.innerHTML = recipes.map(recipe => `
-        <a href="recipe.html?name=${recipe.slug}" class="related-card">
+        <a href="recipes.html?name=${recipe.slug}" class="related-card">
             <div class="related-img-wrapper">
                 <img src="${recipe.image}" alt="${recipe.title}">
             </div>
@@ -153,11 +155,13 @@ function renderRelated(recipes) {
     `).join("");
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const recipeSlug = urlParams.get('name');
+if (typeof window !== "undefined" && window.location.search) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeSlug = urlParams.get("name");
 
-if (recipeSlug) {
-    fetchFullRecipe(recipeSlug);
-} else {
-    console.error("Ingen slug hittades i URL:en");
+    if (recipeSlug) {
+        fetchFullRecipe(recipeSlug);
+    } else {
+        console.error("Ingen slug hittades i URL:en");
+    }
 }
