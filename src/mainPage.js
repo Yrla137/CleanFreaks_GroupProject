@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // BAS-URL TILL SUPABASE //
     const SUPABASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1";
-
     // PUBLIC/ANON KEY //
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 
@@ -17,74 +16,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
             });
 
-            if (!response.ok) {
-                throw new Error(`API-fel: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`API-fel: ${response.status}`);
 
-            const data = await response.json();
-            return data;
+            return await response.json();
         } catch (error) {
             console.error("Fel vid API-anrop:", error);
             return null;
         }
-    };
-// Supabase REST API - bas-URL och anonym nyckel
-// fetchFromSupabase(endpoint) gör GET-anrop med korrekt header och felhantering
+    }
 
-
-    // FUNKTIONER SOM HÄMTAR ALLA ROOMS //
-    async function getRooms() {
-        return fetchFromSupabase("/rooms?select=*")
-    };
-
-    async function getAreas() {
-        return fetchFromSupabase("/areas?select=*")
-    };
-
-    async function getProblems() {
-        return fetchFromSupabase("/problems?select=*")
-    };
-
-    async function getRecipes() {
-        return fetchFromSupabase("/recipes?select=*")
-    };
-
-    async function getBlogPosts() {
-        return fetchFromSupabase("/blog_posts?select=*")
-    };
-
-    async function getIngredients() {
-        return fetchFromSupabase("/ingredients?select=*")
-    };
-
-    async function getTools() {
-        return fetchFromSupabase("/tools?select=*")
-    };
-
+    // Tabeller
+    const getRooms = () => fetchFromSupabase("/rooms?select=*");
+    const getAreas = () => fetchFromSupabase("/areas?select=*");
+    const getProblems = () => fetchFromSupabase("/problems?select=*");
+    const getRecipes = () => fetchFromSupabase("/recipes?select=*");
+    const getBlogPosts = () => fetchFromSupabase("/blog_posts?select=*");
+    const getIngredients = () => fetchFromSupabase("/ingredients?select=*");
+    const getTools = () => fetchFromSupabase("/tools?select=*");
 
     async function getAllSearchData() {
-        
-        const [rooms, areas, problems, recipes, blog_posts, ingredients, tools] = await Promise.all([
+        const [rooms, areas, problems, recipes, blog_posts, ingredients, tools] =
+            await Promise.all([
+                getRooms(),
+                getAreas(),
+                getProblems(),
+                getRecipes(),
+                getBlogPosts(),
+                getIngredients(),
+                getTools()
+            ]);
         // Promise.all gör att sidan väntar tills ALLA anrop är klara så att man inte behöver ta await på en i taget med exempelvis const rooms = await getRooms(); och const areas = await getAreas();
         // Arrayen nedan packas upp i variabler i samma ordning. Exempelvis rooms -> getRooms().
-            getRooms(),
-            getAreas(),
-            getProblems(),
-            getRecipes(),
-            getBlogPosts(),
-            getIngredients(),
-            getTools()
-        ]);
 
-        return { rooms, areas, problems, recipes, blog_posts, ingredients, tools};
-        // Hämtar alla tabeller parallellt och packar i objekt
-        // Resultatet blir {
-        // rooms: [...],
-        // areas: [...],
-        // problems: [...],
-        // recipes: [...]
-    };
+        return { rooms, areas, problems, recipes, blog_posts, ingredients, tools };
+    }
 
+
+    // SÖK-LOGIK //
     function searchInData(data, query) {
         // data = det från getAllSearchData()
         // query är en parameter (input till funktionen)
@@ -92,84 +60,40 @@ document.addEventListener("DOMContentLoaded", () => {
         // query = det användaren skriver i sökfältet och q = samma sak som query, bara i små bokstäver
         // trim() tar bort mellanslag i början/slutet
         // toLowerCase() gör allt till små bokstäver
-
-        // Du bestämmer vad query är när du anropar funktionen:
-        // searchInData(data, "badrum")
-        // 👉 Då blir:
-        // query = "badrum"
-        // q = "badrum"
-
         if (!q) return [];
         // Om användaren inte skriver något ska inte massa resultat komma upp.
 
         let results = [];
         // Här ska datan läggas in / sparas
-        // Vi skapar en varibel som vi kallar results som blir en tom array
+        // Vi skapar en varibel som vi kallar results som blir en tom array som vi sedan fyller på med det som matchar sökningen i de olika tabellerna.
 
 
-        // Här nedanför loppas alla arrayer med data igenom.
-        // If-villkoren säger "Finns söktexten i namnet?" genom q som blivit variabeln för queryn.
-        // Exempel:
-        // | item.name | query | match? |
-        // | --------- | ----- | ------ |
-        // | "Kök"     | "kö"  | ✅      |
-        // | "Badrum"  | "kö"  | ❌      |
-
-        // Rooms
         (data.rooms || []).forEach(item => {
             // item skapas av forEach loopen
             // Vad betyder det?
-            // 👉 “Om data.rooms finns → använd den
-            // 👉 annars → använd tom array []”
+            // “Om data.rooms finns → använd den
+            // annars → använd tom array []”
             if (item.name.toLowerCase().includes(q)) {
-
-                // Här läggs resultatet till. Skapar ett standardformat.
-                // Exempelvis: { type: "room", title: "Kök", id: 1 }
-                results.push({
-                    // Här fylls variablen med de tomma arrayen results i efter att datan loopats igenom
-                    // OM det matchar i if → lägg till i listan
-                    type: "room",
-                    title: item.name,
-                    id: item.room_id
-                });
+            // Här läggs resultatet till. Skapar ett standardformat.
+            // Exempelvis: { type: "room", title: "Kök", id: 1 }
+                results.push({ type: "room", title: item.name, id: item.room_id });
+            // Här fylls variablen med de tomma arrayen results i efter att datan loopats igenom
+            // OM det matchar i if → lägg till i listan
             }
         });
 
-        // Tänk så här:
-
-        // data.rooms = [
-        //   { room_id: 1, name: "Kök" },
-        //   { room_id: 2, name: "Badrum" }
-        // ]
-
-        // 👉 loopen gör:
-
-        // item = { room_id: 1, name: "Kök" }
-        // item = { room_id: 2, name: "Badrum" }
-
-        // Areas
         (data.areas || []).forEach(item => {
             if (item.name.toLowerCase().includes(q)) {
-                results.push({
-                    type: "area",
-                    title: item.name,
-                    id: item.area_id
-                });
+                results.push({ type: "area", title: item.name, id: item.area_id });
             }
         });
 
-        // Problems
         (data.problems || []).forEach(item => {
             if (item.name.toLowerCase().includes(q)) {
-                results.push({
-                    type: "problem",
-                    title: item.name,
-                    id: item.problem_id
-                });
+                results.push({ type: "problem", title: item.name, id: item.problem_id });
             }
         });
 
-        // Recipes
         (data.recipes || []).forEach(item => {
             if (item.title.toLowerCase().includes(q)) {
                 results.push({
@@ -181,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Blog_posts
         (data.blog_posts || []).forEach(item => {
             if (item.title.toLowerCase().includes(q)) {
                 results.push({
@@ -192,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Ingredients
         (data.ingredients || []).forEach(item => {
             if (item.name.toLowerCase().includes(q)) {
                 results.push({
@@ -203,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Tools
         (data.tools || []).forEach(item => {
             if (item.name.toLowerCase().includes(q)) {
                 results.push({
@@ -215,106 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         return results;
-        // Returnerar resultatet
-        // Exempel resultat:
-        // [ { type: "room", title: "Kök", id: 1 }, { type: "area", title: "Spis", id: 3 } ]
-
     }
 
 
-    // KLICKBARA HTML RUMIKNOER //
-    const roomIconsBtns = document.querySelectorAll(".room");
-    // Skapar alla knappar med klassen "room"
+    // UI DATA - labels & ikoner //
 
-    roomIconsBtns.forEach(button => {
-    button.addEventListener("click", () => {
-        // Lägger på en click-event på varje knapp
-
-        const roomId = button.dataset.roomId;
-        // Läser ID från data-attributet
-        const roomName = button.dataset.roomName;
-        // dataset läser data-attributet från HTML.
-        // Om knappen har exempelvis data-room-id="1" → button.dataset.roomId blir "1" (en sträng).
-
-        window.location.href = `category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
-        // window.location.href = `category.html?type=room&id=${roomId}&title=${encodeURIComponent(roomName)}`;
-        // Navigerar till sidan med room_id i querystringen
-        // encodeURIComponent gör att specialtecken och mellanslag i texten blir giltiga i URL.
-        // Exempel: "Tvättstuga & Kök" → "Tv%C3%A4ttstuga%20%26%20K%C3%B6k"
-    });
-});
-
-
-    // // HAMBURGARMENY //
-    // const menuBtn = document.querySelector(".menu-btn");
-    // const menu = document.querySelector(".menu");
-    // // Skapar variabler för meny-knappen och själva menyn
-
-    // menuBtn.addEventListener("click", () => {
-    //     menu.classList.toggle("active");
-    //     // Lägger på/tar bort klassen "active" på både knappen och menyn när man klickar på knappen
-    //     if (menu.classList.contains("active")) {
-    //     // Om menyn har klassen "active" → aria-label = "Stäng meny"
-    //         menuBtn.setAttribute("aria-label", "Stäng meny");
-    //     } else {
-    //         menuBtn.setAttribute("aria-label", "Öppna meny");
-    //     // Om menyn inte har klassen "active" → aria-label = "Öppna meny"
-    //     }
-    // });
-
-    // const links = menu.querySelectorAll("a");
-    // // Alla länkar i menyn
-    // links.forEach(link => {
-    //     link.addEventListener("click", () => {
-    //         menu.classList.remove("active");
-    //         menuBtn.setAttribute("aria-label", "Öppna meny");
-    //         // När man klickar på en länk i menyn → döljs menyn och aria-label ändras tillbaka till "Öppna meny"
-    //     });
-    // });
-
-
-    const searchForm = document.querySelector(".search");
-    const searchInput = document.querySelector("#search-input");
-
-    let allData = null;
-
-    getAllSearchData().then(data => {
-        allData = data;
-    });
-
-    searchForm.addEventListener("submit", (e) => {
-        // Körs när man trycker Enter / klickar sök
-        e.preventDefault();
-        // Stoppar sidan från att ladda om
-
-        const query = searchInput.value;
-        // Det användaren skriver
-
-        if (!allData){
-            console.warn("Datan laddas fortfarande, vänligen vänta...");
-            return;
-        }
-        // SÄKERHETSCHECK! Om API inte är klart → varna användaren och stoppa funktionen
-
-        const results = searchInData(allData, query);
-
-        renderResults(results);
-        // Kör searchInData i vaiabeln results med query och renderResults
-
-    });
-
-
-    const resultsSection = document.querySelector("#search-results");
-    // Hela sektionen (för att visa/dölja)
-    const resultsContainer = document.querySelector(".results-grid");
-    // Där vi stoppar resultaten
-
-    const popularRecipesContainer = document.querySelector(".popular-recipes");
-    const blogPostsContainer = document.querySelector(".blog-posts");
-    // Variabler för att visa populära recept och blogginlägg på startsidan
-
-    // Här skapas typeLables för att i renderResults kunna visa sökresultaten på följande sätt
     const typeLabels = {
+        // Här skapas typeLables för att i renderResults kunna visa sökresultaten på följande sätt
         room: "Rum",
         area: "Område",
         problem: "Problem",
@@ -324,8 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tool: "Verktyg"
     };
 
-    // Här skapas roomIcons för att i renderResults kunna visa ikonerna i sökresultaten
     const roomIconsSearch = {
+        // Här skapas roomIcons för att i renderResults kunna visa ikonerna i sökresultaten
         "Kök": "fa-solid fa-kitchen-set",
         "Badrum": "fa-solid fa-bath",
         "Vardagsrum": "fa-solid fa-couch",
@@ -334,77 +162,163 @@ document.addEventListener("DOMContentLoaded", () => {
         "Utomhus": "fa-solid fa-umbrella-beach"
     };
 
-    // POPULÄRA-RECEPT FUNKTION //
-    function startRecipeSlideshow(data) {
- 
-    if (!recipes || recipes.length === 0) {
-        popularRecipesContainer.innerHTML = "<p>Inga populära recept att visa</p>";
-        return;
-    }
-    }
+    
+    // KOMPONENTER (UI-FUNKTIONER) //
 
-    // BLOGGINLÄGG FUNKTION //
-    function renderRandomBlogPosts(data) {
-        if (!blog_posts || blog_posts.length === 0) {
-            blogPostsContainer.innerHTML = "<p>Inga blogginlägg att visa</p>";
-            return;
+    // Recipes slideshow //
+    function popularRecipeSlideshow(recipes) {
+        if (!recipes || recipes.length === 0) return;
+
+        const container = document.querySelector(".recipe-slideshow");
+        if (!container) return;
+
+        let index = 0;
+
+        function showRecipe() {
+            const recipe = recipes[index];
+
+            container.innerHTML = `
+                <div class="slide">
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.description || ""}</p>
+                </div>
+            `;
+
+            index = (index + 1) % recipes.length;
         }
+
+        showRecipe();
+        setInterval(showRecipe, 8000);
+    }
+
+    // Blog posts //
+    function showRandomBlogPosts(posts) {
+        if (!posts || posts.length === 0) return;
+
+        const container = document.querySelector(".blog-posts");
+        if (!container) return;
+
+        const shuffled = [...posts].sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 3);
+
+        container.innerHTML = selected.map(post => `
+            <div class="blog-card">
+                <h4>${post.title}</h4>
+            </div>
+        `).join("");
     }
 
 
+    // RENDERING // VISNING AV SÖKRESULTAT //
 
-    // RENDER FUNKTION //
+    const resultsSection = document.querySelector("#search-results");
+    // Hela sektionen (för att visa/dölja)
+    const resultsContainer = document.querySelector(".results-grid");
+    // Där vi stoppar resultaten
+
     function renderResults(results) {
-
         resultsContainer.innerHTML = "";
         // Tömmer tidigare resultat
 
         if (results.length === 0) {
+        // Om inga resultat return "Inga resultat"
             resultsContainer.innerHTML = "<p>Inga resultat</p>";
             resultsSection.hidden = false;
             return;
-        // Om inga resultat return "Inga resultat"
         }
 
         results.forEach(item => {
         // Loopar igenom resultat och visar reultat om resultat finns
-
             const div = document.createElement("div");
             div.classList.add("result-card");
 
             let icon = "";
             if (item.type === "room") {
                 const iconClass = roomIconsSearch[item.title] || "fa-solid fa-house";
-                // Med || som betyder "eller" så ser man till att alltid få en ikon om någon skulle sakna.
-
                 icon = `<i class="${iconClass}"></i>`;
             }
+            // Med || som betyder "eller" så ser man till att alltid få en ikon om någon skulle sakna.
 
-
-            // Här skapas innehållet och visar bara description om det finns
             div.innerHTML = `
                 ${icon}
                 <h3>${item.title}</h3>
                 <p>${typeLabels[item.type]}</p>
                 ${item.description ? `<p>${item.description}</p>` : ""}
             `;
-
+            // Här skapas innehållet och visar bara description om det finns
 
             div.addEventListener("click", () => {
             // körs när man klickar på ett resultat
-
-            window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
-            // window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
+            if (item.type === "room") {
+            window.location.href = `category.html?room_id=${item.id}`;
+            } else {
+            console.log("Denna typ stöds inte än:", item.type);
+           }
             // Skickar användaren till en room/area/problem, osv. sida
             // Skickar med ID → nästa sida kan läsa av det
-});
-
-            // Lägg in innhållet i DOM
-            resultsContainer.appendChild(div);
         });
 
-        // Visar sektionen genom att ta bort "hidden" effekten
+            resultsContainer.appendChild(div);
+            // Lägger in innhållet i DOM
+        });
+
         resultsSection.hidden = false;
+        // Visar sektionen genom att ta bort "hidden" effekten
     }
+
+
+    // EVENTS & INITIALISERING //
+
+    // Rum-knappar //
+    const roomIconsBtns = document.querySelectorAll(".room");
+
+    roomIconsBtns.forEach(button => {
+        button.addEventListener("click", () => {
+            const roomId = button.dataset.roomId;
+            // Läser ID från data-attributet
+            const roomName = button.dataset.roomName;
+            // dataset läser data-attributet från HTML.
+            // Om knappen har exempelvis data-room-id="1" → button.dataset.roomId blir "1" (en sträng).
+
+            window.location.href =
+                `category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
+            // window.location.href = `category.html?type=room&id=${roomId}&title=${encodeURIComponent(roomName)}`;
+            // Navigerar till sidan med room_id i querystringen
+            // encodeURIComponent gör att specialtecken och mellanslag i texten blir giltiga i URL.
+            // Exempel: "Tvättstuga & Kök" → "Tv%C3%A4ttstuga%20%26%20K%C3%B6k"
+        });
+    });
+
+
+    // SÖK //
+    const searchForm = document.querySelector(".search");
+    const searchInput = document.querySelector("#search-input");
+
+    let allData = null;
+
+    getAllSearchData().then(data => {
+        allData = data;
+
+        popularRecipeSlideshow(data.recipes);
+        showRandomBlogPosts(data.blog_posts);
+    });
+
+    searchForm.addEventListener("submit", (e) => {
+        // Körs när man trycker Enter / klickar sök
+        e.preventDefault();
+        // Stoppar sidan från att ladda om
+        const query = searchInput.value;
+        // Det användaren skriver
+
+        if (!allData) {
+            console.warn("Datan laddas fortfarande...");
+            return;
+        }
+        // SÄKERHETSCHECK! Om API inte är klart → varna användaren och stoppa funktionen
+
+        const results = searchInData(allData, query);
+        renderResults(results);
+        // Kör searchInData i vaiabeln results med query och renderResults
+    });
 
 });
