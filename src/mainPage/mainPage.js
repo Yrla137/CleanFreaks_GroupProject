@@ -1,3 +1,5 @@
+// MAIN PAGE JAVASCRIPT //
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // BAS-URL TILL SUPABASE //
