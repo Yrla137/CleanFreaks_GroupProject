@@ -48,15 +48,18 @@ export function popularRecipeSlideshow(recipes) {
     let index = 0;
     function showRecipe() {
         const recipe = recipes[index];
-        container.innerHTML = `
-            <div class="slide">
-                <h3>${recipe.title}</h3>
-                <p>${recipe.description || ""}</p>
-            </div>
-        `;
+      container.style.opacity = 0;
+        setTimeout(() => {
+            container.innerHTML = `
+                <div class="slide">
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.description || ""}</p>
+                </div>
+            `;
+            container.style.opacity = 1;
+        }, 200);
         index = (index + 1) % recipes.length;
     }
-
     showRecipe();
     setInterval(showRecipe, 8000);
 }

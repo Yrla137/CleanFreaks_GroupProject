@@ -1,13 +1,381 @@
-
-
-
-
 /* Hamburgarmeny */
 .menu {
     display: none;
 }
 .menu.active {
     display: block;
+}
+
+
+/* MAIN PAGE */
+
+/* Grund CSS */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  color: var(--text-on-light);
+  background: var(--white);
+}
+
+/* Området under headern */
+main {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--light-blue);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+}
+
+/* Huvudrubrik */
+main > h2 {
+  margin: 0 0 var(--space-4);
+  text-align: center;
+  font-size: clamp(2rem, 4vw, var(--h2-font-size));
+  line-height: var(--h2-line-height);
+  font-weight: var(--h2-font-weight);
+  letter-spacing: 0.2px;
+  color: var(--dark-blue);
+}
+
+/* Alla sektioner under varandra */
+.rooms,
+#search-results,
+.recipes-section,
+.blog-section {
+  max-width: var(--max-width-web);
+  margin: 0 auto;
+}
+
+/* Room-sektionen */
+.rooms {
+  margin-bottom: var(--space-5);
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+/* Room-cards */
+.room {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(13, 48, 67, 0.14);
+  min-height: 108px;
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--dark-blue);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    filter 180ms ease;
+}
+
+.room i {
+  font-size: 1.55rem;
+  color: var(--eco-green);
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.room span {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Hover + fokus för klickbar känsla */
+.room:hover,
+.room:focus-visible {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 14px 30px rgba(13, 48, 67, 0.20);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.room:hover i,
+.room:focus-visible i {
+  transform: scale(1.12);
+  color: var(--highlight-pink);
+}
+
+.room:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.room:focus-visible {
+  outline: 3px solid rgba(204, 0, 82, 0.28);
+  outline-offset: 3px;
+}
+
+/* Sök-resultat */
+#search-results {
+  margin-bottom: var(--space-5);
+  padding-top: var(--space-2);
+}
+
+#search-results h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
+  font-weight: var(--h3-font-weight);
+  color: var(--dark-blue);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.result-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(13, 48, 67, 0.12);
+  padding: var(--space-3);
+  color: var(--dark-blue);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.result-card:hover,
+.result-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(13, 48, 67, 0.18);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.result-card i {
+  font-size: 1.35rem;
+  color: var(--eco-green);
+  margin-bottom: var(--space-1);
+}
+
+.result-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  font-weight: var(--font-weight-semibold);
+}
+
+.result-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.result-card p + p {
+  margin-top: 6px;
+  opacity: 0.88;
+}
+
+/* Recept-sektionen */
+.recipes-section {
+  margin-bottom: var(--space-5);
+}
+
+.recipes-section h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
+  font-weight: var(--h3-font-weight);
+  color: var(--dark-blue);
+  text-align: center;
+
+}
+
+.recipe-slideshow {
+  min-height: 150px;
+}
+
+.slide {
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(13, 48, 67, 0.14);
+  padding: var(--space-4);
+  color: var(--dark-blue);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  animation: slideFadeIn 420ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+
+  /* Smooth fade + slide animation för recept-slides */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: recipeEnter 0.6s ease forwards;
+  
+  text-align: center;
+  align-items: center;
+}
+
+.slide:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(13, 48, 67, 0.18);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.slide h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.25;
+  font-weight: var(--h3-font-weight);
+}
+
+.slide p {
+  margin: 0;
+  font-size: var(--p-font-size);
+  line-height: var(--p-line-height);
+}
+
+/* Blog-inlägg Sektionen */
+
+.blog-section {
+  margin-bottom: var(--space-5);
+}
+
+.blog-section h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
+  font-weight: var(--h3-font-weight);
+  color: var(--dark-blue);
+  text-align: center;
+}
+
+.blog-posts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.blog-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(13, 48, 67, 0.10);
+  padding: var(--space-3);
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  animation: slideFadeIn 520ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+
+  text-align: center;
+  justify-content: center;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px rgba(13, 48, 67, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.blog-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: var(--font-weight-semibold);
+  color: var(--dark-blue);
+}
+
+/* ANIMATIONER */
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TOMT RESULTAT */
+
+#search-results p {
+  margin: 0;
+  color: var(--dark-blue);
+}
+
+
+/* TABLET / DESKTOP */
+
+@media (min-width: 768px) {
+  main {
+    padding: var(--space-5) var(--space-4) var(--space-6);
+  }
+
+  .rooms-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .room {
+    min-height: 126px;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blog-posts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .recipes-section h2,
+  .blog-section h2 {
+    text-align: left;
+ }
+
+  .slide {
+    padding: var(--space-5);
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding: var(--space-5) var(--space-5) var(--space-6);
+  }
+
+  .rooms-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .room {
+    min-height: 134px;
+  }
+
+  .recipe-slideshow {
+    max-width: 760px;
+  }
+
+  .slide {
+    min-height: 170px;
+  }
 }
 
 
@@ -81,3 +449,10 @@ footer a {
   }
 
 }
+
+/* Tillhör .slide för att ge en mjuk fade + slide animation när recepten laddas in */
+  @keyframes recipeEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }};
