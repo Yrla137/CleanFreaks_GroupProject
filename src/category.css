@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ── STYLEGUIDE VARIABLER ── */
@@ -61,6 +62,12 @@
 }
 
 /* ── RESET ── */
+=======
+/* =============================================
+   category.css – använder variabler från styleguide.css
+   ============================================= */
+
+>>>>>>> main
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -72,14 +79,24 @@ body {
   font-size: var(--p-font-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--p-line-height);
+<<<<<<< HEAD
   background: var(--light-blue);
+=======
+  background-color: var(--light-blue);
+>>>>>>> main
   color: var(--text-on-light);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── HEADER PLACEHOLDER ── */
 #header-placeholder {
+<<<<<<< HEAD
   background: var(--dark-blue);
+=======
+  background-color: var(--dark-blue);
+>>>>>>> main
   color: var(--text-on-dark);
   padding: 0 var(--space-3);
   height: 70px;
@@ -93,8 +110,15 @@ body {
 /* ── MAIN ── */
 .main-content {
   max-width: var(--max-width-web);
+<<<<<<< HEAD
   margin: 0 auto;
   padding: var(--space-4) var(--space-3) var(--section-padding);
+=======
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--section-padding);
+  flex: 1;
+>>>>>>> main
 }
 
 /* ── TILLBAKA-KNAPP ── */
@@ -102,7 +126,11 @@ body {
   display: inline-block;
   margin-bottom: var(--space-3);
   padding: var(--button-padding-y) var(--button-padding-x);
+<<<<<<< HEAD
   background: transparent;
+=======
+  background-color: transparent;
+>>>>>>> main
   color: var(--dark-blue);
   font-family: var(--font-family-base);
   font-size: var(--link-font-size);
@@ -111,11 +139,19 @@ body {
   text-decoration: var(--link-text-decoration);
   border: 2px solid var(--dark-blue);
   border-radius: var(--border-radius);
+<<<<<<< HEAD
   transition: background .2s, color .2s;
 }
 
 .back-btn:hover {
   background: var(--dark-blue);
+=======
+  transition: background-color .2s, color .2s;
+}
+
+.back-btn:hover {
+  background-color: var(--dark-blue);
+>>>>>>> main
   color: var(--text-on-dark);
   text-decoration: none;
 }
@@ -141,7 +177,11 @@ body {
 /* ── AREA CARD ── */
 .area-card {
   position: relative;
+<<<<<<< HEAD
   background: var(--white);
+=======
+  background-color: var(--white);
+>>>>>>> main
   border-radius: var(--border-radius);
   border: 2px solid transparent;
   padding: var(--card-padding);
@@ -171,7 +211,11 @@ body {
   top: calc(100% + var(--space-1));
   left: 0;
   z-index: 200;
+<<<<<<< HEAD
   background: var(--white);
+=======
+  background-color: var(--white);
+>>>>>>> main
   border: 2px solid var(--dark-blue);
   border-radius: var(--border-radius);
   padding: var(--space-2);
@@ -212,7 +256,10 @@ body {
 .problems-popup p::before {
   content: '•';
   color: var(--eco-green);
+<<<<<<< HEAD
   font-size: 1rem;
+=======
+>>>>>>> main
 }
 
 .problems-popup .no-problems {
@@ -241,6 +288,84 @@ body {
   to { transform: rotate(360deg); }
 }
 
+<<<<<<< HEAD
+=======
+/* ── FOOTER ── */
+.footer-background {
+  background-color: var(--dark-blue);
+}
+
+footer {
+  max-width: var(--max-width-web);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-3);
+  color: var(--text-on-dark);
+}
+
+.footer-header h3 {
+  font-family: var(--font-family-heading);
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-on-dark);
+  margin-bottom: var(--space-4);
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.footer-container h4 {
+  font-size: var(--p-font-size);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-on-dark);
+  margin-bottom: var(--space-1);
+}
+
+.footer-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.footer-container a {
+  color: var(--text-on-dark);
+  font-size: var(--link-font-size);
+  font-weight: var(--font-weight-regular);
+  text-decoration: none;
+  opacity: .85;
+  transition: opacity .2s;
+}
+
+.footer-container a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.footer-container p {
+  font-size: var(--p-font-size);
+  color: var(--text-on-dark);
+  opacity: .85;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(224, 241, 250, .2);
+  padding-top: var(--space-2);
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: var(--p-font-size);
+  color: var(--text-on-dark);
+  opacity: .7;
+}
+
+>>>>>>> main
 /* ── RESPONSIVE – mobile first ── */
 @media (max-width: 768px) {
   .areas-grid {
@@ -259,5 +384,10 @@ body {
 
   .area-card:hover .problems-popup {
     transform: translateX(-50%);
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
