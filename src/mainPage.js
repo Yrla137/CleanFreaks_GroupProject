@@ -236,7 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // dataset läser data-attributet från HTML.
         // Om knappen har exempelvis data-room-id="1" → button.dataset.roomId blir "1" (en sträng).
 
-        window.location.href = `category.html?type=room&id=${roomId}&title=${encodeURIComponent(roomName)}`;
+        window.location.href = `category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
+        // window.location.href = `category.html?type=room&id=${roomId}&title=${encodeURIComponent(roomName)}`;
         // Navigerar till sidan med room_id i querystringen
         // encodeURIComponent gör att specialtecken och mellanslag i texten blir giltiga i URL.
         // Exempel: "Tvättstuga & Kök" → "Tv%C3%A4ttstuga%20%26%20K%C3%B6k"
@@ -340,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
         popularRecipesContainer.innerHTML = "<p>Inga populära recept att visa</p>";
         return;
     }
+    }
 
     // BLOGGINLÄGG FUNKTION //
     function renderRandomBlogPosts(data) {
@@ -392,6 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // körs när man klickar på ett resultat
 
             window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
+            // window.location.href = `category.html?type=${item.type}&id=${item.id}&title=${encodeURIComponent(item.title)}`;
             // Skickar användaren till en room/area/problem, osv. sida
             // Skickar med ID → nästa sida kan läsa av det
 });
