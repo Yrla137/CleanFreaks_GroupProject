@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
+    <link rel="preload" as="image" href="../public/cleanfreak_logo-eco-green.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us & Contact us</title>
     <link rel="stylesheet" href="./aboutUs_contact.css">
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="./header.css">
+    <link rel="stylesheet" href="./loader.css">
     <!-- Länk till icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -72,6 +74,14 @@
                 enklare för dig att uppnå det målet.</p>
         </div>
 
+        <!-- Loader -->
+        <div id="page-loader" class="loader-overlay" style="display: none;">
+            <div class="loader-content">
+                <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+                <p>Vi städar fram sidan...</p>
+            </div>
+        </div>
+
         <div class="contact-us">
             <h2>Kontakta oss</h2>
             <p>Har du några frågor eller har vi missat ett riktigt bra städtips? Tveka inte att kontakta oss via
@@ -133,5 +143,6 @@
 </body>
 <script src="./header.js"></script>
 <script src="./headerSearch.js"></script>
+<script src="./loader.js"></script>
 
 </html>

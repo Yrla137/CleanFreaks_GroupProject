@@ -2,10 +2,12 @@
 <html lang="sv">
 
 <head>
+    <link rel="preload" as="image" href="../public/cleanfreak_logo-eco-green.png">
     <meta charset="UTF-8">
     <title>Sökresultat - CleanFreaks</title>
     <link rel="stylesheet" href="search.css">
     <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="loader.css">
     <!-- Länk till icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,8 +58,7 @@
                 <div class="search">
                     <input type="search" name="q" id="search-input" placeholder="Vad vill du städa?" />
                     <button type="submit" style="display:none;"></button>
-                    <span class="fa fa-search icon" onclick="this.parentElement.parentElement.submit();"
-                        style="cursor:pointer;"></span>
+                    <span class="fa fa-search header-search-icon"></span>
                 </div>
             </form>
 
@@ -69,6 +70,14 @@
             <div class="results-grid">
             </div>
         </section>
+
+        <!-- Loader -->
+        <div id="page-loader" class="loader-overlay" style="display: none;">
+            <div class="loader-content">
+                <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+                <p>Vi städar fram sidan...</p>
+            </div>
+        </div>
     </main>
 
 
@@ -116,8 +125,8 @@
 </body>
 <script type="module" src="header.js"></script>
 <script src="./search.js"></script>
-<script src="./header.js"></script>
 <script src="./headerSearch.js"></script>
+<script src="./loader.js"></script>
 
 
 </html>

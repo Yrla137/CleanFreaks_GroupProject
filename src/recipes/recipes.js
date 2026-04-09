@@ -1,9 +1,13 @@
+/* global loader */
+
 // KONFIGURATION
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 const BASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1/recipes";
 
 
 export function fetchFullRecipe(slug) {
+    if (typeof loader !== 'undefined') loader.show();
+
     const query = `?select=*,` +
         `recipe_steps(*),` +
         `recipe_tools(*,tools(*)),` +
@@ -34,6 +38,9 @@ export function fetchFullRecipe(slug) {
         })
         .catch(error => {
             console.error("Hoppsan, något gick fel:", error);
+        })
+        .finally(() => {
+            if (typeof loader !== 'undefined') loader.hide();
         });
 }
 
