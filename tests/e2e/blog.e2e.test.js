@@ -1,8 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("bloggsidan laddar och visar inlägg", async ({ page }) => {
-  await page.goto("http://127.0.0.1:5500/src/blog.html");
-
+await page.goto('/src/blog.html');
   await expect(page.locator("#posts")).toBeVisible();
 
   await expect(page.locator(".post").first()).toBeVisible();
@@ -10,8 +9,7 @@ test("bloggsidan laddar och visar inlägg", async ({ page }) => {
 });
 
 test("kategorier visas och går att klicka på", async ({ page }) => {
-  await page.goto("http://127.0.0.1:5500/src/blog.html");
-
+await page.goto('/src/blog.html');
   await expect(page.locator("#category-list")).toBeVisible();
 
   const buttons = page.locator("#category-list button");
