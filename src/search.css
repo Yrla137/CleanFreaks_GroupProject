@@ -154,7 +154,7 @@ main {
     color: var(--highlight-pink) !important;
 }
 
-.result-card-room h3 {
+.result-card-room span {
     margin-top: 20px;
     margin-bottom: 0;
     font-size: var(--h3-font-size);
