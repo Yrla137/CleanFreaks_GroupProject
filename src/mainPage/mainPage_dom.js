@@ -8,7 +8,7 @@ export function renderResults(results) {
 
     if (!results.length) {
         resultsContainer.innerHTML = "<p>Inga resultat</p>";
-        resultsSection.hidden = false;
+        resultsSection.removeAttribute("hidden");
         return;
     }
 
@@ -30,14 +30,14 @@ export function renderResults(results) {
         `;
 
         div.addEventListener("click", () => {
-            if (item.type === "room") window.location.href = `category.html?room_id=${item.id}`;
+            if (item.type === "room") window.location.href = `src/category.html?room_id=${item.id}&room_name=${encodeURIComponent(item.title)}`;
             else console.log("Denna typ stöds inte än:", item.type);
         });
 
         resultsContainer.appendChild(div);
     });
 
-    resultsSection.hidden = false;
+    resultsSection.removeAttribute("hidden");
 }
 
 export function popularRecipeSlideshow(recipes) {
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const roomId = button.dataset.roomId;
             const roomName = button.dataset.roomName;
-            window.location.href = `category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
+            window.location.href = `src/category.html?room_id=${roomId}&room_name=${encodeURIComponent(roomName)}`;
         });
     });
 });
