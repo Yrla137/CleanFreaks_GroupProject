@@ -1,4 +1,5 @@
 header {
+/*   height: 130px; */
     background-color: var(--dark-blue);
 }
 
@@ -50,14 +51,24 @@ header {
 .search input {
   border-radius: 30px;
     border: none;
-    padding-left: var(--space-1);
-    padding-right: var(--space-1);
+    padding: var(--space-1);
   font-size: var(--p-font-size);
   line-height: var(--p-line-height);
   font-weight: var(--p-font-weight);
   background-color: var(--white);
   width: 140px;
 }
+
+.search input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--light-blue);
+  
+}
+
+.search-input:focus::placeholder {
+    opacity: 0;
+}
+
 .header-search-icon {
   cursor: pointer;
   pointer-events: auto;
