@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us & Contact us</title>
     <link rel="stylesheet" href="./aboutUs_contact.css">
+    <link rel="stylesheet" href="header.css">
+    <!-- Länk till icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +24,44 @@
 
 <body>
 
-    <header>
+    <header class="header">
+        <div class="top-bar">
 
+            <!-- Hamburgarmeny -->
+            <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="menu" id="main-menu" hidden>
+                <ul>
+                    <li><a href="index.html">Hem</a></li>
+                    <li><a href="blog.html">Blogginlägg</a></li>
+                    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+                    <li><a href="category.html">Kategorier</a></li>
+                </ul>
+            </nav>
+
+            <!-- Logga -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+                    <h3 class="logo-style">CleanFreak</h3>
+                </a>
+            </div>
+
+            <!-- Sök -->
+            <form action="search.html" method="GET">
+                <div class="search">
+                    <input type="search" name="q" id="search-input" placeholder="Vad vill du städa?" />
+                    <button type="submit" style="display:none;"></button>
+                    <span class="fa fa-search icon" onclick="this.parentElement.parentElement.submit();"
+                        style="cursor:pointer;"></span>
+                </div>
+            </form>
+
+        </div>
     </header>
 
     <main>
@@ -92,5 +131,7 @@
     </div>
 
 </body>
+<script src="./header.js"></script>
+<script src="./headerSearch.js"></script>
 
 </html>
