@@ -21,12 +21,12 @@ main {
   width: 100%;
   min-height: 100vh;
   background: var(--light-blue);
-  padding: var(--space-4) var(--space-4) var(--space-6);
+  padding: calc(var(--space-6) + 0.75rem) var(--space-5) var(--space-6);
 }
 
 /* Huvudrubrik */
 main > h2 {
-  margin: 0 0 var(--space-4);
+  margin: 0 0 calc(var(--space-5) + 0.25rem);
   text-align: center;
   font-size: clamp(2rem, 4vw, var(--h2-font-size));
   line-height: var(--h2-line-height);
@@ -42,6 +42,7 @@ main > h2 {
 .blog-section {
   max-width: var(--max-width-web);
   margin: 0 auto;
+  padding-inline: var(--space-1);
 }
 
 /* Room-sektionen */
@@ -52,10 +53,10 @@ main > h2 {
 .rooms-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
-/* Room-cards */
+/* Room-kort */
 .room {
   appearance: none;
   border: 0;
@@ -71,7 +72,7 @@ main > h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   color: var(--dark-blue);
   transition:
     transform 180ms ease,
@@ -81,7 +82,7 @@ main > h2 {
 }
 
 .room i {
-  font-size: 1.55rem;
+  font-size: 1.95rem;
   color: var(--eco-green);
   transition: transform 180ms ease, color 180ms ease;
 }
@@ -93,11 +94,10 @@ main > h2 {
   text-align: center;
 }
 
-/* Hover + fokus för klickbar känsla */
 .room:hover,
 .room:focus-visible {
   transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 14px 30px rgba(13, 48, 67, 0.20);
+  box-shadow: 0 14px 30px rgba(13, 48, 67, 0.2);
   background: rgba(255, 255, 255, 0.92);
 }
 
@@ -179,48 +179,79 @@ main > h2 {
 
 /* Recept-sektionen */
 .recipes-section {
-  margin-bottom: var(--space-5);
+  margin-bottom: calc(var(--space-6) + 0.5rem);
 }
 
 .recipes-section h2 {
-  margin: 0 0 var(--space-3);
+  margin: var(--space-5) 0 var(--space-4);
   font-size: var(--h3-font-size);
   line-height: var(--h3-line-height);
   font-weight: var(--h3-font-weight);
   color: var(--dark-blue);
   text-align: center;
-
 }
 
 .recipe-slideshow {
   min-height: 150px;
+  margin-bottom: var(--space-4);
+  max-width: clamp(320px, 80%, 520px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.recipe-slideshow a,
+.blog-posts a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Wrapper för animationen */
+.slide-wrap {
+  animation: recipeEnter 0.8s ease both;
+}
+
+/* Recept-slide som klickbar card */
 .slide {
+  width: 100%;
+  display: flex;
   background: rgba(255, 255, 255, 0.86);
   border-radius: 16px;
   box-shadow: 0 12px 28px rgba(13, 48, 67, 0.14);
   padding: var(--space-4);
-  color: var(--dark-blue);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  animation: slideFadeIn 420ms ease;
-  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
-
-  /* Smooth fade + slide animation för recept-slides */
-  opacity: 0;
-  transform: translateY(10px);
-  animation: recipeEnter 0.6s ease forwards;
-  
+  cursor: pointer;
   text-align: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    filter 180ms ease;
+  will-change: transform;
 }
 
-.slide:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(13, 48, 67, 0.18);
+.slide h3,
+.slide p {
+  color: var(--eco-green);
+  transition: color 180ms ease;
+}
+
+.slide:hover,
+.slide:focus-visible {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 18px 34px rgba(13, 48, 67, 0.2);
   background: rgba(255, 255, 255, 0.95);
+}
+
+.slide:hover h3,
+.slide:hover p,
+.slide:focus-visible h3,
+.slide:focus-visible p {
+  color: var(--highlight-pink);
 }
 
 .slide h3 {
@@ -236,14 +267,18 @@ main > h2 {
   line-height: var(--p-line-height);
 }
 
-/* Blog-inlägg Sektionen */
+.slide:focus-visible {
+  outline: 3px solid rgba(204, 0, 82, 0.28);
+  outline-offset: 4px;
+}
 
+/* Blogg-inlägg Sektionen */
 .blog-section {
   margin-bottom: var(--space-5);
 }
 
 .blog-section h2 {
-  margin: 0 0 var(--space-3);
+  margin: var(--space-5) 0 var(--space-4);
   font-size: var(--h3-font-size);
   line-height: var(--h3-line-height);
   font-weight: var(--h3-font-weight);
@@ -257,25 +292,36 @@ main > h2 {
   gap: var(--space-2);
 }
 
+/* Blogg-card som klickbar card */
 .blog-card {
   background: rgba(255, 255, 255, 0.82);
   border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(13, 48, 67, 0.10);
+  box-shadow: 0 8px 20px rgba(13, 48, 67, 0.1);
   padding: var(--space-3);
-  min-height: 90px;
+  min-height: 78px;
   display: flex;
   align-items: center;
-  animation: slideFadeIn 520ms ease;
-  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
-
-  text-align: center;
   justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  animation: slideFadeIn 520ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    filter 180ms ease;
 }
 
-.blog-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 26px rgba(13, 48, 67, 0.16);
-  background: rgba(255, 255, 255, 0.94);
+.blog-card:hover,
+.blog-card:focus-visible {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 16px 30px rgba(13, 48, 67, 0.18);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.blog-card:hover h4,
+.blog-card:focus-visible h4 {
+  color: var(--highlight-pink);
 }
 
 .blog-card h4 {
@@ -283,11 +329,17 @@ main > h2 {
   font-size: 1rem;
   line-height: 1.4;
   font-weight: var(--font-weight-semibold);
-  color: var(--dark-blue);
+  color: var(--eco-green);
+  transition: color 180ms ease;
 }
 
-/* ANIMATIONER */
+.blog-card:focus-visible {
+  outline: 3px solid rgba(204, 0, 82, 0.28);
+  outline-offset: 4px;
+}
 
+
+/* ANIMATIONER */
 @keyframes slideFadeIn {
   from {
     opacity: 0;
@@ -299,19 +351,27 @@ main > h2 {
   }
 }
 
-/* TOMT RESULTAT */
+@keyframes recipeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* TOMT RESULTAT */
 #search-results p {
   margin: 0;
   color: var(--dark-blue);
 }
 
-
 /* TABLET / DESKTOP */
-
 @media (min-width: 768px) {
   main {
-    padding: var(--space-5) var(--space-4) var(--space-6);
+    padding: calc(var(--space-6) + 1rem) var(--space-5) var(--space-6);
   }
 
   .rooms-grid {
@@ -321,6 +381,11 @@ main > h2 {
 
   .room {
     min-height: 126px;
+    gap: 18px;
+  }
+
+  .room i {
+    font-size: 2.2rem;
   }
 
   .results-grid {
@@ -329,23 +394,41 @@ main > h2 {
 
   .blog-posts {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .recipes-section,
+  .blog-section {
+    margin-bottom: calc(var(--space-6) + 0.25rem);
   }
 
   .recipes-section h2,
   .blog-section h2 {
     text-align: left;
- }
+  }
+
+  .recipe-slideshow {
+    margin-left: 0;
+    margin-right: auto;
+    max-width: 760px;
+  }
 
   .slide {
     padding: var(--space-5);
     text-align: left;
     align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .blog-card {
+    min-height: 86px;
+    padding: var(--space-3);
   }
 }
 
 @media (min-width: 1024px) {
   main {
-    padding: var(--space-5) var(--space-5) var(--space-6);
+    padding: calc(var(--space-6) + 1.25rem) var(--space-6) var(--space-6);
   }
 
   .rooms-grid {
@@ -358,99 +441,122 @@ main > h2 {
 
   .room {
     min-height: 134px;
+    gap: 20px;
+  }
+
+  .room i {
+    font-size: 2.35rem;
   }
 
   .recipe-slideshow {
     max-width: 760px;
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: calc(var(--space-5) + 1rem);
+  }
+
+  .blog-posts {
+    gap: calc(var(--space-4) + 0.25rem);
+  }
+
+  .recipes-section {
+    margin-bottom: calc(var(--space-6) + 0.75rem);
+  }
+
+  .blog-section {
+    margin-bottom: var(--space-6);
   }
 
   .slide {
     min-height: 170px;
   }
-}
 
+  .blog-card {
+    min-height: 92px;
+  }
+}
 
 /** FOOTER **/
 footer {
-    background-color: var(--dark-blue);
-    color: var(--text-on-dark); 
+  background-color: var(--dark-blue);
+  color: var(--text-on-dark);
 }
 
 footer h4 {
-    font-family: var(--font-family-heading);
-    font-size: var(--h4-font-size);
-    line-height: var(--h4-line-height);
-    font-weight: var(--h3-font-weight);
+  font-family: var(--font-family-heading);
+  font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height);
+  font-weight: var(--h3-font-weight);
 }
 
 footer p {
-    font-family: var(--font-family-base);
-    font-size: var(--p-font-size);
-    line-height: var(--p-line-height);
-    font-weight: var(--p-font-weight);
+  font-family: var(--font-family-base);
+  font-size: var(--p-font-size);
+  line-height: var(--p-line-height);
+  font-weight: var(--p-font-weight);
 }
+
 footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: var(--space-1);
-    color: var(--text-on-dark);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: var(--space-1);
+  color: var(--text-on-dark);
 }
 
 footer a {
-    font-family: var(--font-family-base);
-    font-size: var(--link-font-size);
-    line-height: var(--link-line-height);
-    font-weight: var(--link-font-weight);
-    text-decoration: var(--link-text-decoration);
-    color: var(--text-on-dark);}
+  font-family: var(--font-family-base);
+  font-size: var(--link-font-size);
+  line-height: var(--link-line-height);
+  font-weight: var(--link-font-weight);
+  text-decoration: var(--link-text-decoration);
+  color: var(--text-on-dark);
+}
 
 .footer-header {
-    text-align: left;
-    padding: var(--space-2);
+  text-align: left;
+  padding: var(--space-2);
 }
 
 .footer-container {
-    display: flex;
-    flex-direction: column;
-    padding-left: calc(var(--space-6) * 2);
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(var(--space-6) * 2);
 }
 
 .footer-bottom {
-    text-align: right;
-    padding: var(--space-2);
+  text-align: right;
+  padding: var(--space-2);
 }
-
 
 @media (min-width: 768px) {
-    /* **FOOTER**/
-
-    .footer-background {
-        background-color: var(--dark-blue);
-    }
-    footer {
-        max-width: var(--max-width-web);
-        margin: 0 auto; 
-   }
-
-    .footer-container {
-        flex-direction: row;
-        justify-content: space-around;
-        margin: 0 auto;
+  .footer-background {
+    background-color: var(--dark-blue);
   }
 
+  footer {
+    max-width: var(--max-width-web);
+    margin: 0 auto;
+  }
+
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
 }
 
-/* Tillhör .slide för att ge en mjuk fade + slide animation när recepten laddas in */
-  @keyframes recipeEnter {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }}
 
-  /* ===== HEADER OVERRIDE – ENDAST STARTSIDAN ===== */
+/* HEADER OVERRIDE – ENDAST STARTSIDAN */
+.home .header,
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-.home .header .top-bar {
+.home .header .top-bar,
+.header .top-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -458,34 +564,66 @@ footer a {
   gap: 1rem;
   padding: 1.5rem 1rem 1.75rem;
   position: relative;
+  background: var(--dark-blue);
 }
 
 /* Hamburgare kvar uppe till vänster */
-.home .header .menu-btn {
+.home .header .menu-btn,
+.header .menu-btn {
   position: absolute;
   left: 1rem;
   top: 1.25rem;
 }
 
-/* ===== LOGGA ===== */
-.home .header .logo a {
+/* LOGGA i headern */
+.home .header .logo a,
+.header .logo a {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
   text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+  transform-origin: center;
 }
 
-.home .header .logo-image {
+.home .header .logo a:hover,
+.home .header .logo a:focus-visible,
+.header .logo a:hover,
+.header .logo a:focus-visible {
+  transform: scale(1.06);
+  filter: drop-shadow(0 8px 16px rgba(13, 48, 67, 0.18));
+}
+
+.home .header .logo a:active,
+.header .logo a:active {
+  transform: scale(1.02);
+}
+
+.home .header .logo-image,
+.header .logo-image {
   width: 46px;
+  transition: transform 180ms ease;
 }
 
-.home .header .logo-style {
+.home .header .logo a:hover .logo-image,
+.home .header .logo a:focus-visible .logo-image,
+.header .logo a:hover .logo-image,
+.header .logo a:focus-visible .logo-image {
+  transform: scale(1.08);
+}
+
+.home .header .logo-style,
+.header .logo-style {
   margin: 0;
 }
 
-/* ===== SÖKFÄLT ===== */
-.home .header .search {
+/* SÖKFÄLT i headern på startsidan */
+.home .header .search,
+.header .search {
   display: flex;
   align-items: center;
   width: min(100%, 380px);
@@ -494,17 +632,20 @@ footer a {
   background: white;
   box-shadow: 0 10px 24px rgba(13, 48, 67, 0.18);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: text;
 }
 
-/* Hover på hela sökfältet */
 .home .header .search:focus-within,
-.home .header .search:hover {
+.home .header .search:hover,
+.header .search:focus-within,
+.header .search:hover {
   box-shadow: 0 14px 30px rgba(13, 48, 67, 0.22);
   transform: translateY(-1px);
+  cursor: text;
 }
 
-/* Input */
-.home .header .search input {
+.home .header .search input,
+.header .search input {
   flex: 1;
   border: none;
   outline: none;
@@ -512,44 +653,45 @@ footer a {
   font-size: 1rem;
   background: transparent;
   color: var(--dark-blue);
+  cursor: text;
 }
 
-.home .header .search input::placeholder {
+.home .header .search input::placeholder,
+.header .search input::placeholder {
   color: #6b7280;
 }
 
-/* ===== FÖRSTORINGSGLAS (knapp) ===== */
-.home .header .search button {
+.home .header .search button,
+.header .search button {
   width: 48px;
   border: none;
   cursor: pointer;
   display: grid;
   place-items: center;
-
-  background: transparent; /* ← ingen färg */
+  background: transparent;
   color: var(--dark-blue);
-
   transition: all 0.2s ease;
 }
 
-/* Hover */
-.home .header .search button:hover {
+.home .header .search button:hover,
+.header .search button:hover {
   color: var(--highlight-pink);
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
-/* Ikon */
-.home .header .search button i {
+.home .header .search button i,
+.header .search button i {
   font-size: 1.05rem;
 }
 
-/* ===== DESKTOP ===== */
 @media (min-width: 768px) {
-  .home .header .top-bar {
+  .home .header .top-bar,
+  .header .top-bar {
     padding: 2rem 1rem 2.2rem;
   }
 
-  .home .header .search {
+  .home .header .search,
+  .header .search {
     width: min(100%, 440px);
   }
 }
