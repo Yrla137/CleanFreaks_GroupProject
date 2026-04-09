@@ -46,20 +46,22 @@ export function popularRecipeSlideshow(recipes) {
     if (!container) return;
 
     let index = 0;
+
     function showRecipe() {
         const recipe = recipes[index];
-      container.style.opacity = 0;
-        setTimeout(() => {
-            container.innerHTML = `
-                <div class="slide">
+
+        container.innerHTML = `
+            <div class="slide-wrap">
+                <a href="src/recipes/recipes.html?name=${encodeURIComponent(recipe.slug)}" class="slide">
                     <h3>${recipe.title}</h3>
                     <p>${recipe.description || ""}</p>
-                </div>
-            `;
-            container.style.opacity = 1;
-        }, 200);
+                </a>
+            </div>
+        `;
+
         index = (index + 1) % recipes.length;
     }
+
     showRecipe();
     setInterval(showRecipe, 8000);
 }
@@ -73,9 +75,11 @@ export function showRandomBlogPosts(posts) {
     const selected = shuffled.slice(0, 3);
 
     container.innerHTML = selected.map(post => `
-        <div class="blog-card">
+        <a href="src/blog.html?name=${encodeURIComponent(post.slug)}"
+           class="blog-card"
+           style="display:block; color:inherit; text-decoration:none;">
             <h4>${post.title}</h4>
-        </div>
+        </a>
     `).join("");
 }
 

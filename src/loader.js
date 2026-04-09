@@ -2,14 +2,12 @@
 
 const loader = {
     show: () => {
-        // Hårdkoll: Om vi är på GitHub Actions eller lokal test-URL, avbryt DIREKT
-        if (window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost')) {
-            console.log("Testmiljö detekterad - Loadern inaktiverad");
-            return;
-        }
+        // navigator.webdriver räcker oftast för att stoppa testrobotar
+        // men låta dig se sidan på din localhost/127.0.0.1
+        const isRobot = navigator.webdriver;
 
         const el = document.getElementById("page-loader");
-        if (el) {
+        if (el && !isRobot) {
             el.style.display = "flex";
             setTimeout(() => { el.style.opacity = "1"; }, 10);
         }
