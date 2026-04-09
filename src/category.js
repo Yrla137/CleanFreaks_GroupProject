@@ -122,10 +122,10 @@ function createAreaCard(area, problems) {
 
   if (problems.length) {
     problems.forEach(p => {
-      // Varje problem är nu en klickbar länk till recipes.html
+      // Länka till sökresultat på startsidan med problemnamnet
       const link = document.createElement('a');
       link.className = 'problem-link';
-      link.href = `recipes.html?problem_id=${p.problem_id}`;
+      link.href = `search.html?q=${encodeURIComponent(p.name)}`;
       link.textContent = p.name;
       popup.appendChild(link);
     });
