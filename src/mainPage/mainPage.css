@@ -56,7 +56,7 @@ main > h2 {
   gap: var(--space-3);
 }
 
-/* Room-cards */
+/* Room-kort */
 .room {
   appearance: none;
   border: 0;
@@ -272,7 +272,7 @@ main > h2 {
   outline-offset: 4px;
 }
 
-/* Blog-inlägg Sektionen */
+/* Blogg-inlägg Sektionen */
 .blog-section {
   margin-bottom: var(--space-5);
 }
@@ -337,6 +337,7 @@ main > h2 {
   outline: 3px solid rgba(204, 0, 82, 0.28);
   outline-offset: 4px;
 }
+
 
 /* ANIMATIONER */
 @keyframes slideFadeIn {
@@ -545,7 +546,8 @@ footer a {
   }
 }
 
-/* ===== HEADER OVERRIDE – ENDAST STARTSIDAN ===== */
+
+/* HEADER OVERRIDE – ENDAST STARTSIDAN */
 .home .header,
 .header {
   position: sticky;
@@ -573,7 +575,7 @@ footer a {
   top: 1.25rem;
 }
 
-/* ===== LOGGA ===== */
+/* LOGGA i headern */
 .home .header .logo a,
 .header .logo a {
   display: flex;
@@ -619,7 +621,7 @@ footer a {
   margin: 0;
 }
 
-/* ===== SÖKFÄLT ===== */
+/* SÖKFÄLT i headern på startsidan */
 .home .header .search,
 .header .search {
   display: flex;
