@@ -76,67 +76,57 @@ function searchInData(data, query) {
 
     return results;
 }
-// --- STARTA SÖKNINGEN ---
-document.addEventListener("DOMContentLoaded", async () => {
-    const resultsContainer = document.querySelector(".results-grid");
-    const searchInput = document.querySelector("#search-input");
-    const searchForm = document.querySelector(".search-form");
 
-    // 1. Hämta all data
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Hämta all data från Supabase direkt
     const allData = await getAllSearchData();
 
-    // 2. Kolla URL
+    // 2. Kolla vad som står i URL:en (t.ex. ?q=badrum)
     const urlParams = new URLSearchParams(window.location.search);
     const queryFromUrl = urlParams.get('q');
 
+    // 3. Om det finns ett sökord, kör sökningen och rita ut
     if (queryFromUrl && allData) {
-        if (searchInput) searchInput.value = queryFromUrl;
         const results = searchInData(allData, queryFromUrl);
         renderResults(results);
+    } else if (allData) {
+        // Om man landar på sidan utan att ha sökt
+        document.querySelector(".results-grid").innerHTML =
+            "<p>Använd sökfältet i menyn för att hitta städtips!</p>";
     }
+});
 
-    // 3. Lyssna på nya sökningar på denna sida
-    if (searchForm) {
-        searchForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const newQuery = searchInput.value;
-            const results = searchInData(allData, newQuery);
-            renderResults(results);
-            // Uppdatera URL
-            history.pushState(null, "", `?q=${encodeURIComponent(newQuery)}`);
-        });
-    }
+function renderResults(results) {
+    const container = document.querySelector(".results-grid");
+    container.innerHTML = "";
 
-    function renderResults(results) {
-        const container = document.querySelector(".results-grid");
-        container.innerHTML = "";
+    const roomIconsSearch = {
+        "kök": "fa-solid fa-kitchen-set",
+        "badrum": "fa-solid fa-bath",
+        "vardagsrum": "fa-solid fa-couch",
+        "sovrum": "fa-solid fa-bed",
+        "tvättstuga": "fa-solid fa-sink",
+        "utomhus": "fa-solid fa-umbrella-beach"
+    };
 
-        const roomIconsSearch = {
-            "kök": "fa-solid fa-kitchen-set",
-            "badrum": "fa-solid fa-bath",
-            "vardagsrum": "fa-solid fa-couch",
-            "sovrum": "fa-solid fa-bed",
-            "tvättstuga": "fa-solid fa-sink",
-            "utomhus": "fa-solid fa-umbrella-beach"
-        };
+    results.forEach(item => {
+        const div = document.createElement("div");
 
-        results.forEach(item => {
-            const div = document.createElement("div");
+        if (item.type === "room") {
+            div.className = "room result-card-room";
+            const lookupName = item.title.toLowerCase();
+            const iconClass = roomIconsSearch[lookupName] || "fa-solid fa-house";
 
-            if (item.type === "room") {
-                div.className = "room result-card-room";
-                const lookupName = item.title.toLowerCase();
-                const iconClass = roomIconsSearch[lookupName] || "fa-solid fa-house";
-
-                div.innerHTML = `
+            div.innerHTML = `
                 <i class="${iconClass}"></i>
                 <h3>${item.title}</h3>
                 `;
-            } else {
-                div.className = "result-card";
-                const media = item.image ? `<img src="${item.image}" alt="">` : `<div class="placeholder">🍳</div>`;
+        } else {
+            div.className = "result-card";
+            const media = item.image ? `<img src="${item.image}" alt="">` : `<div class="placeholder">🍳</div>`;
 
-                div.innerHTML = `
+            div.innerHTML = `
                 ${media}
                 <div class="info">
                     <span class="label">STÄDTIPS</span>
@@ -144,12 +134,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     ${item.description ? `<p class="result-description">${item.description}</p>` : ""}
                 </div>
                 `;
-            }
+        }
 
-            div.addEventListener("click", () => {
-                window.location.href = item.url;
-            });
-            container.appendChild(div);
+        div.addEventListener("click", () => {
+            window.location.href = item.url;
         });
-    }
-});
+        container.appendChild(div);
+    });
+}

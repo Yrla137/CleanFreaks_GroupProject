@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Sökresultat - CleanFreaks</title>
     <link rel="stylesheet" href="search.css">
-
+    <link rel="stylesheet" href="header.css">
+    <!-- Länk till icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,22 +24,52 @@
 </head>
 
 <body>
-    <main>
-        <section class="search-header">
-            <h1>Sök i CleanFreaks</h1>
-            <form class="search-form">
-                <input type="text" id="search-input" placeholder="Vad vill du städa idag?">
-                <button type="submit">Sök</button>
-            </form>
-        </section>
+    <header class="header">
+        <div class="top-bar">
 
+            <!-- Hamburgarmeny -->
+            <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="menu" id="main-menu" hidden>
+                <ul>
+                    <li><a href="mainPage.html">Hem</a></li>
+                    <li><a href="blog.html">Blogginlägg</a></li>
+                    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+                    <li><a href="category.html">Kategorier</a></li>
+                </ul>
+            </nav>
+
+            <!-- Logga -->
+            <div class="logo">
+                <a href="mainPage.html">
+                    <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+                    <h3 class="logo-style">CleanFreak</h3>
+                </a>
+            </div>
+
+            <!-- Sök -->
+            <form action="search.html" method="GET">
+                <div class="search">
+                    <input type="search" name="q" id="search-input" placeholder="Vad vill du städa?" />
+                    <button type="submit" style="display:none;"></button>
+                    <span class="fa fa-search icon" onclick="this.parentElement.parentElement.submit();"
+                        style="cursor:pointer;"></span>
+                </div>
+            </form>
+
+        </div>
+    </header>
+    <main>
         <section id="search-results">
-            <h2 id="search-title">Resultat</h2>
+            <h2 id="search-title">Sökresultat</h2>
             <div class="results-grid">
             </div>
         </section>
     </main>
-    <script src="./search.js"></script>
 
 
     <div class="footer-background">
@@ -82,5 +114,10 @@
         </footer>
     </div>
 </body>
+<script type="module" src="header.js"></script>
+<script src="./search.js"></script>
+<script src="./header.js"></script>
+<script src="./headerSearch.js"></script>
+
 
 </html>
