@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
+    <link rel="preload" as="image" href="../public/cleanfreak_logo-eco-green.png">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes</title>
     <link rel="stylesheet" href="./recipes.css">
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../loader.css">
     <!-- Länk till icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -76,6 +79,15 @@
                 <div id="recipes-difficulty" class="info-tag"></div>
                 <div id="recipes-eco-friendly" class="info-tag"></div>
             </div>
+
+            <!-- Loader -->
+            <div id="page-loader" class="loader-overlay">
+                <div class="loader-content">
+                    <img src="../../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+                    <p>Vi städar fram sidan...</p>
+                </div>
+            </div>
+
             <div id="recipes-tools-ingredients">
                 <div id="recipes-tools"></div>
                 <div id="recipes-ingredients"></div>
@@ -137,5 +149,6 @@
 <script type="module" src="./recipes.js"></script>
 <script src="../header.js"></script>
 <script src="../headerSearch.js"></script>
+<script src="../loader.js"></script>
 
 </html>

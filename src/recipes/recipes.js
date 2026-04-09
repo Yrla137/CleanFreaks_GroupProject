@@ -4,6 +4,8 @@ const BASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1/recipes";
 
 
 export function fetchFullRecipe(slug) {
+    if (typeof loader !== 'undefined') loader.show();
+
     const query = `?select=*,` +
         `recipe_steps(*),` +
         `recipe_tools(*,tools(*)),` +
@@ -34,6 +36,9 @@ export function fetchFullRecipe(slug) {
         })
         .catch(error => {
             console.error("Hoppsan, något gick fel:", error);
+        })
+        .finally(() => {
+            if (typeof loader !== 'undefined') loader.hide();
         });
 }
 
