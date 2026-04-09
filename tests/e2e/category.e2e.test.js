@@ -45,10 +45,10 @@ describe("Category Page E2E", () => {
     await expect(firstLink).toBeVisible();
 
     const href = await firstLink.getAttribute("href");
-    expect(href).toMatch(/recipes\.html\?problem_id=\d+/);
+    expect(href).toMatch(/search\.html\?q=/);
   });
 
-  test("klick på problem navigerar till recipes.html med rätt problem_id", async ({ page }) => {
+  test("klick på problem navigerar till search.html med q-parameter", async ({ page }) => {
     await page.goto("/src/category.html?room_id=1");
 
     const firstCard = page.locator(".area-card").first();
@@ -61,7 +61,7 @@ describe("Category Page E2E", () => {
 
     await firstLink.click();
 
-    await expect(page).toHaveURL(/recipes\.html\?problem_id=\d+/);
+    await expect(page).toHaveURL(/search\.html\?q=/);
   });
 
   test("tillbaka-knappen navigerar till startsidan", async ({ page }) => {
