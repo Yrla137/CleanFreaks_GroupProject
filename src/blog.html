@@ -18,45 +18,45 @@
     <title>Blogg</title>
 </head>
 <body>
-    <header class="header">
-        <div class="top-bar">
+<header class="header">
+  <div class="top-bar">
 
-      <!-- Hamburgarmeny -->
+    <!-- Hamburgarmeny -->
     <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-<nav class="menu" id="main-menu" hidden>
-  <ul>
-    <li><a href="mainPage.html">Hem</a></li>
-    <li><a href="blog.html">Blogginlägg</a></li>
-    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
-    <li><a href="category.html">Kategorier</a></li>
-  </ul>
-</nav>
+    <nav class="menu" id="main-menu" hidden>
+      <ul>
+        <li><a href="mainPage.html">Hem</a></li>
+        <li><a href="blog.html">Blogginlägg</a></li>
+        <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+        <li><a href="category.html">Kategorier</a></li>
+      </ul>
+    </nav>
 
-      <!-- Logga -->
-      <div class="logo">
-        <a href="mainPage.html">
-          <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
-          <h3 class="logo-style">CleanFreak</h3>
-        </a>
-      </div>
-
-      <!-- Sök -->
-      <div class="search">
-       <input
-          type="search"
-          id="search-input"
-          placeholder="Sök..."
-        />
-         <span class="fa fa-search icon"></span>
-      </div>
-
+    <!-- Logga -->
+    <div class="logo">
+      <a href="mainPage.html">
+        <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+        <h3 class="logo-style">CleanFreak</h3>
+      </a>
     </div>
-  </header>
+
+    <!-- Sök -->
+    <form action="search.html" method="GET">
+      <div class="search">
+        <input type="search" name="q" id="search-input" placeholder="Vad vill du städa?" />
+        <button type="submit" style="display:none;"></button>
+        <span class="fa fa-search icon" onclick="this.parentElement.parentElement.submit();"
+          style="cursor:pointer;"></span>
+      </div>
+    </form>
+
+  </div>
+</header>
 <!--   <span id="breadcrumbs"><a href="mainPage.html">Hem</a> / <span>Blogg</span></span>
  -->
   
@@ -79,7 +79,7 @@
                 <div>
                     <h4>Navigation</h4>
                     <ul>
-                        <li><a href="mainPage.html">Hem</a></li>
+                        <li><a href="../index.html">Hem</a></li>
                         <li><a href="blog.html">Blogg</a></li>
                     </ul>
                 </div>
@@ -107,5 +107,6 @@
     </div>
     <script type="module" src="./blog.js"></script>
     <script type="module" src="./header.js"></script>
+    <script type="module" src="./headerSearch.js"></script>
 </body>
 </html>
