@@ -142,6 +142,7 @@ main {
     background-color: var(--dark-blue);
     color: var(--text-on-dark);
     transition: background-color 0.5s;
+    border: 2px solid var(--dark-blue);
 }
 
 .tag:hover {

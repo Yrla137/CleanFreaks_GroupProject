@@ -1,4 +1,4 @@
-// KONFIGURATION (Samma som din kollegas)
+// KONFIGURATION
 const SUPABASE_URL = "https://xhezpykmxkacfmzmvbzp.supabase.co/rest/v1";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhoZXpweWtteGthY2Ztem12YnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTc2NTYsImV4cCI6MjA5MDUzMzY1Nn0.dkMURqCsUaDlBO6zI6MpEK5ajMHvWhlq7GXbqfIMnUo";
 
@@ -18,17 +18,16 @@ async function fetchFromSupabase(endpoint) {
     }
 }
 
-// HÄMTA ALL DATA (Precis som på startsidan)
+// HÄMTA ALL DATA
 async function getAllSearchData() {
     const [rooms, recipes] = await Promise.all([
         fetchFromSupabase("/rooms?select=*"),
-        // Här använder vi din djupa URL för att få med alla kopplingar ner till rumsnivå
         fetchFromSupabase("/recipes?select=*,recipe_problems(problems(name,areas_problems(areas(name,room_area(rooms(name))))))")
     ]);
     return { rooms, recipes };
 }
 
-// SÖK-LOGIKEN (Återanvänd)
+// SÖK-LOGIKEN
 function searchInData(data, query) {
     const q = query.trim().toLowerCase();
     if (!q) return [];
@@ -41,13 +40,12 @@ function searchInData(data, query) {
                 type: "room",
                 title: room.name,
                 id: room.room_id,
-                // URL-format: category.html?type=room&id=1&title=Kök
-                url: `category.html?type=room&id=${room.room_id}&title=${encodeURIComponent(room.name)}`
+                url: `category.html?room_id=${room.room_id}&room_name=${encodeURIComponent(room.name)}`
             });
         }
     });
 
-    // --- RECEPT (Bred sökning inkl. rumskoppling) ---
+    // --- RECEPT ---
     (data.recipes || []).forEach(recipe => {
         // Kolla titel/beskrivning
         const textMatch = recipe.title?.toLowerCase().includes(q) || recipe.description?.toLowerCase().includes(q);
@@ -68,10 +66,10 @@ function searchInData(data, query) {
             results.push({
                 type: "recipe",
                 title: recipe.title,
+                description: recipe.description,
                 image: recipe.image,
                 slug: recipe.slug,
-                // URL-format: src/recipes/recipes.html?name=slug
-                url: `src/recipes/recipes.html?name=${recipe.slug}`
+                url: `recipes/recipes.html?name=${recipe.slug}`
             });
         }
     });
@@ -87,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. Hämta all data
     const allData = await getAllSearchData();
 
-    // 2. Kolla URL (?q=ugn-bikarbonat)
+    // 2. Kolla URL
     const urlParams = new URLSearchParams(window.location.search);
     const queryFromUrl = urlParams.get('q');
 
@@ -104,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const newQuery = searchInput.value;
             const results = searchInData(allData, newQuery);
             renderResults(results);
-            // Uppdatera URL utan omladdning
+            // Uppdatera URL
             history.pushState(null, "", `?q=${encodeURIComponent(newQuery)}`);
         });
     }
@@ -113,26 +111,44 @@ document.addEventListener("DOMContentLoaded", async () => {
         const container = document.querySelector(".results-grid");
         container.innerHTML = "";
 
+        const roomIconsSearch = {
+            "kök": "fa-solid fa-kitchen-set",
+            "badrum": "fa-solid fa-bath",
+            "vardagsrum": "fa-solid fa-couch",
+            "sovrum": "fa-solid fa-bed",
+            "tvättstuga": "fa-solid fa-sink",
+            "utomhus": "fa-solid fa-umbrella-beach"
+        };
+
         results.forEach(item => {
             const div = document.createElement("div");
-            div.className = "result-card";
 
-            // Visa bild för recept, kanske en ikon för rum?
-            const media = item.image ? `<img src="${item.image}" alt="">` : `<div class="room-placeholder">🏠</div>`;
+            if (item.type === "room") {
+                div.className = "room result-card-room";
+                const lookupName = item.title.toLowerCase();
+                const iconClass = roomIconsSearch[lookupName] || "fa-solid fa-house";
 
-            div.innerHTML = `
-            ${media}
-            <div class="info">
-                <span class="label">${item.type === 'room' ? 'RUM' : 'RECEPT'}</span>
+                div.innerHTML = `
+                <i class="${iconClass}"></i>
                 <h3>${item.title}</h3>
-            </div>
-        `;
+                `;
+            } else {
+                div.className = "result-card";
+                const media = item.image ? `<img src="${item.image}" alt="">` : `<div class="placeholder">🍳</div>`;
 
-            // Klick-eventet använder den URL vi byggde i sökfunktionen
+                div.innerHTML = `
+                ${media}
+                <div class="info">
+                    <span class="label">STÄDTIPS</span>
+                    <h3>${item.title}</h3>
+                    ${item.description ? `<p class="result-description">${item.description}</p>` : ""}
+                </div>
+                `;
+            }
+
             div.addEventListener("click", () => {
                 window.location.href = item.url;
             });
-
             container.appendChild(div);
         });
     }
