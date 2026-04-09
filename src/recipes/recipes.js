@@ -98,28 +98,31 @@ export function renderRecipe(recipe) {
     const tagsContainer = document.getElementById("recipe-tags");
     if (recipe.recipe_problems && recipe.recipe_problems.length > 0) {
         let tagHTML = `<div class="tag-group">`;
-        const uniqueTags = new Set();
+
+        const uniqueTags = {};
+
         recipe.recipe_problems.forEach(rp => {
             const prob = rp.problems;
             if (prob) {
-                uniqueTags.add({ name: prob.name, type: 'problem' });
+                uniqueTags[prob.name] = 'problem';
                 prob.areas_problems?.forEach(ap => {
                     if (ap.areas) {
-                        uniqueTags.add({ name: ap.areas.name, type: 'area' });
+                        uniqueTags[ap.areas.name] = 'area';
                         ap.areas.room_area?.forEach(ra => {
-                            if (ra.rooms) uniqueTags.add({ name: ra.rooms.name, type: 'room' });
+                            if (ra.rooms) uniqueTags[ra.rooms.name] = 'room';
                         });
                     }
                 });
             }
         });
-        Array.from(uniqueTags).forEach(tag => {
-            tagHTML += `<a href="search.html?q=${encodeURIComponent(tag.name)}" class="tag tag-${tag.type}">${tag.name}</a>`;
+
+        Object.keys(uniqueTags).forEach(tagName => {
+            const tagType = uniqueTags[tagName];
+            tagHTML += `<a href="../search.html?q=${encodeURIComponent(tagName)}" class="tag tag-${tagType}">${tagName}</a>`;
         });
+
         tagHTML += `</div>`;
         tagsContainer.innerHTML = tagHTML;
-    } else {
-        tagsContainer.innerHTML = "";
     }
 }
 
