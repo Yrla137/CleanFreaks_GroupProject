@@ -535,7 +535,7 @@ footer a {
 /* Hover */
 .home .header .search button:hover {
   color: var(--highlight-pink);
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 /* Ikon */
