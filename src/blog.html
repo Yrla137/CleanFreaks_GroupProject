@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="blog.css">
     <link rel="stylesheet" href="styleguide.css">
     <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="loader.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -66,7 +67,14 @@
         <h3>Kategorier</h3>
         <ul id="category-list"></ul>
     </aside>
-  <div id="posts"></div>
+  <div id="posts">
+         <div id="page-loader" class="loader-overlay" style="display: none;">
+            <div class="loader-content">
+                <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+                <p>Vi städar fram sidan...</p>
+            </div>
+        </div>
+  </div>
 </main>
     
 
@@ -109,5 +117,6 @@
     <script type="module" src="./blog.js"></script>
     <script type="module" src="./header.js"></script>
     <script type="module" src="./headerSearch.js"></script>
+    <script type="module" src="./loader.js"></script>
 </body>
 </html>
