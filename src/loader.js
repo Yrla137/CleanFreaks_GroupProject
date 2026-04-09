@@ -2,14 +2,17 @@
 
 const loader = {
     show: () => {
-        // Kontrollera om vi körs i en testmiljö (t.ex. Playwright eller CI)
-        const isTest = navigator.webdriver || window.location.href.includes('127.0.0.1');
+        const isTest = navigator.webdriver ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === 'localhost';
 
         const el = document.getElementById("page-loader");
-        // Om det inte är ett test, visa loadern som vanligt
+
+        // Visa bara om det INTE är ett test
         if (el && !isTest) {
             el.style.display = "flex";
-            el.style.opacity = "1";
+            // En liten timeout så att display: flex hinner registreras innan vi tonar in
+            setTimeout(() => { el.style.opacity = "1"; }, 10);
         }
     },
     hide: () => {
@@ -23,10 +26,11 @@ const loader = {
     }
 };
 
+// --- VIKTIGT: Kör show direkt när skriptet laddas ---
+loader.show();
+
 window.addEventListener('load', () => {
     setTimeout(() => {
-        if (typeof loader !== 'undefined') {
-            loader.hide();
-        }
+        loader.hide();
     }, 500);
 });
