@@ -13,55 +13,54 @@
   <link rel="stylesheet" href="src/styleguide.css" />
   <!-- Egen CSS -->
   <link rel="stylesheet" href="src/mainPage/mainPage.css" />
+  <link rel="stylesheet" href="src/header.css" />
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-
-    <div class="top-bar">
+<!-- HEADER -->
+<header class="header">
+        <div class="top-bar">
 
       <!-- Hamburgarmeny -->
-      <button class="menu-btn" aria-label="Öppna meny">☰</button>
+        <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+<nav class="menu" id="main-menu" hidden>
+  <ul>
+    <li><a href="mainPage.html">Hem</a></li>
+    <li><a href="blog.html">Blogginlägg</a></li>
+    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+    <li><a href="category.html">Kategorier</a></li>
+  </ul>
+</nav>
 
       <!-- Logga -->
       <div class="logo">
         <a href="mainPage.html">
-          <span>🧹</span>
-          <h1>Clean Freaks</h1>
+          <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+          <h3 class="logo-style">CleanFreak</h3>
         </a>
       </div>
-
-      <!-- Sök -->
-      <form class="search">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Vad vill du städa?"
-        />
-        <button type="submit" aria-label="Sök">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
-
     </div>
-
-    <!-- MENY -->
-    <nav class="menu" hidden>
-      <ul>
-        <li><a href="mainPage.html">Hem</a></li>
-        <li><a href="blog.html">Blogginlägg</a></li>
-        <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
-        <li><a href="category.html">Kategorier</a></li>
-      </ul>
-    </nav>
-
-  </header>
 
 
   <!-- MAIN -->
   <main>
+
+    <!-- Sök -->
+      <div class="search">
+       <input
+          type="search"
+          id="search-input"
+          placeholder="Vad vill du städa?"
+        />
+         <span class="fa fa-search icon"></span>
+      </div>
+
 
     <h2>Välj ett rum</h2>
 
@@ -166,6 +165,7 @@
 
 <script type="module" src="src/mainPage/mainPage_dom.js"></script>
 <script type="module" src="src/header.js" defer></script>
+<script type="module" src="src/search.js"></script>
 
 </body>
 </html>
