@@ -7,8 +7,11 @@
 
   <!-- Font-Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
- <!-- Font-link--> 
+ <!-- Fonttype-link--> 
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cookie&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">">
   <!-- StyleGuide -->
   <link rel="stylesheet" href="src/styleguide.css" />
   <!-- Egen CSS -->
@@ -16,52 +19,55 @@
   <link rel="stylesheet" href="src/header.css" />
 </head>
 
-<body>
+<body class="home">
 
 <!-- HEADER -->
-<header class="header">
-        <div class="top-bar">
+  <header class="header">
+
+    <div class="top-bar">
 
       <!-- Hamburgarmeny -->
-        <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+    <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-<nav class="menu" id="main-menu" hidden>
-  <ul>
-    <li><a href="mainPage.html">Hem</a></li>
-    <li><a href="blog.html">Blogginlägg</a></li>
-    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
-    <li><a href="category.html">Kategorier</a></li>
-  </ul>
-</nav>
+    <nav class="menu" id="main-menu" hidden>
+      <ul>
+        <li><a href="index.html">Hem</a></li>
+        <li><a href="src/blog.html">Blogginlägg</a></li>
+        <li><a href="src/aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+        <li><a href="src/category.html">Kategorier</a></li>
+      </ul>
+    </nav>
 
       <!-- Logga -->
-      <div class="logo">
-        <a href="mainPage.html">
-          <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
-          <h3 class="logo-style">CleanFreak</h3>
-        </a>
-      </div>
+    <div class="logo">
+      <a href="index.html">
+        <img src="public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+        <h3 class="logo-style">CleanFreak</h3>
+      </a>
     </div>
 
-
-  <!-- MAIN -->
-  <main>
-
-    <!-- Sök -->
-      <div class="search">
-       <input
+      <!-- Sök -->
+      <form class="search">
+        <input
           type="search"
           id="search-input"
           placeholder="Vad vill du städa?"
         />
-         <span class="fa fa-search icon"></span>
-      </div>
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
 
+    </div>
 
+  </header>
+
+  <!-- MAIN -->
+  <main>
     <h2>Välj ett rum</h2>
 
     <!-- ROOMS -->
@@ -116,7 +122,7 @@
   </section>
 
   <section class="blog-section">
-      <h2>Senaste blogginlägg</h2>
+      <h2>Senaste blogginlägg...</h2>
       <div class="blog-posts"></div>
   </section>
 
@@ -134,8 +140,8 @@
     <div>
       <h4>Navigation</h4>
       <ul>
-        <li><a href="mainPage.html">Hem</a></li>
-        <li><a href="blog.html">Blogg</a></li>
+        <li><a href="index.html">Hem</a></li>
+        <li><a href="src/blog.html">Blogg</a></li>
 
       </ul>
     </div>
@@ -152,7 +158,7 @@
     </div>
 
     <div>
-     <a href="aboutUs_contact.html"><h4>Kontakt</h4></a>
+     <a href="src/aboutUs_contact.html"><h4>Kontakt</h4></a>
       <p>info@cleanfreaks.se</p>
     </div>
   </div>
@@ -165,7 +171,6 @@
 
 <script type="module" src="src/mainPage/mainPage_dom.js"></script>
 <script type="module" src="src/header.js" defer></script>
-<script type="module" src="src/search.js"></script>
 
 </body>
 </html>
