@@ -38,7 +38,7 @@ header {
   position: relative;
 }
 
-.search .icon {
+.search .header-search-icon {
     color: var(--dark-blue);
   position: absolute;
   right: 10px;
@@ -58,7 +58,7 @@ header {
   background-color: var(--white);
   width: 140px;
 }
-.icon {
+.header-search-icon {
   cursor: pointer;
   pointer-events: auto;
 }
@@ -136,6 +136,11 @@ header {
   background: rgba(255, 255, 255, 0.08);
   transform: translateX(2px);
   outline: none;
+}
+
+
+#recipes-tools a {
+    color: var(--eco-green);
 }
 
 
