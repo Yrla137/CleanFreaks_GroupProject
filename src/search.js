@@ -79,21 +79,21 @@ function searchInData(data, query) {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Hämta all data från Supabase direkt
     const allData = await getAllSearchData();
+    if (!allData) return;
 
-    // 2. Kolla vad som står i URL:en (t.ex. ?q=badrum)
     const urlParams = new URLSearchParams(window.location.search);
-    const queryFromUrl = urlParams.get('q');
+    const query = urlParams.get('q');
+    const titleElement = document.getElementById("search-title");
 
-    // 3. Om det finns ett sökord, kör sökningen och rita ut
-    if (queryFromUrl && allData) {
-        const results = searchInData(allData, queryFromUrl);
+    if (query && allData) {
+        titleElement.innerText = `Resultat för: "${query}"`;
+
+        const results = searchInData(allData, query);
         renderResults(results);
-    } else if (allData) {
-        // Om man landar på sidan utan att ha sökt
-        document.querySelector(".results-grid").innerHTML =
-            "<p>Använd sökfältet i menyn för att hitta städtips!</p>";
+    } else {
+        titleElement.innerText = "Sök efter städtips";
+        document.querySelector(".results-grid").innerHTML = "<p>Börja skriva i fältet ovan!</p>";
     }
 });
 
@@ -101,6 +101,7 @@ function renderResults(results) {
     const container = document.querySelector(".results-grid");
     container.innerHTML = "";
 
+    // Din ikon-mappning för rummen
     const roomIconsSearch = {
         "kök": "fa-solid fa-kitchen-set",
         "badrum": "fa-solid fa-bath",
@@ -110,30 +111,49 @@ function renderResults(results) {
         "utomhus": "fa-solid fa-umbrella-beach"
     };
 
+    // 1. KOLLA OM DET FINNS RESULTAT
+    if (results.length === 0) {
+        container.innerHTML = `
+            <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <i class="fa-regular fa-face-frown" style="font-size: 3rem; color: var(--dark-blue); margin-bottom: 1rem;"></i>
+                <p>Hoppsan! Vi hittade inget som matchade din sökning.</p>
+                <p>Prova att söka på något annat, t.ex. "Kök", "Ättika" eller "Bikarbonat".</p>
+            </div>
+        `;
+        container.style.display = "block";
+        return;
+    }
+
+    // 2. Återställ till Grid om vi har resultat
+    container.style.display = "grid";
+
+    // 3. RITA UT RESULTATEN
     results.forEach(item => {
         const div = document.createElement("div");
 
         if (item.type === "room") {
+            // RUM-utseende (samma som startsidan)
             div.className = "room result-card-room";
             const lookupName = item.title.toLowerCase();
             const iconClass = roomIconsSearch[lookupName] || "fa-solid fa-house";
 
             div.innerHTML = `
                 <i class="${iconClass}"></i>
-                <h3>${item.title}</h3>
-                `;
+                <span>${item.title}</span>
+            `;
         } else {
+            // RECEPT-utseende
             div.className = "result-card";
             const media = item.image ? `<img src="${item.image}" alt="">` : `<div class="placeholder">🍳</div>`;
 
             div.innerHTML = `
                 ${media}
                 <div class="info">
-                    <span class="label">STÄDTIPS</span>
+                    <span class="label">RECEPT</span>
                     <h3>${item.title}</h3>
                     ${item.description ? `<p class="result-description">${item.description}</p>` : ""}
                 </div>
-                `;
+            `;
         }
 
         div.addEventListener("click", () => {
