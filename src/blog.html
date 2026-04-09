@@ -5,23 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="blog.css">
     <link rel="stylesheet" href="styleguide.css">
+    <link rel="stylesheet" href="header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Link -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <title>Blogg</title>
 </head>
 <body>
-    <header></header>
+    <header class="header">
+        <div class="top-bar">
 
+      <!-- Hamburgarmeny -->
+    <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<nav class="menu" id="main-menu" hidden>
+  <ul>
+    <li><a href="mainPage.html">Hem</a></li>
+    <li><a href="blog.html">Blogginlägg</a></li>
+    <li><a href="aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+    <li><a href="category.html">Kategorier</a></li>
+  </ul>
+</nav>
+
+      <!-- Logga -->
+      <div class="logo">
+        <a href="mainPage.html">
+          <img src="../public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+          <h3 class="logo-style">CleanFreak</h3>
+        </a>
+      </div>
+
+      <!-- Sök -->
+      <div class="search">
+       <input
+          type="search"
+          id="search-input"
+          placeholder="Sök..."
+        />
+         <span class="fa fa-search icon"></span>
+      </div>
+
+    </div>
+  </header>
+<!--   <span id="breadcrumbs"><a href="mainPage.html">Hem</a> / <span>Blogg</span></span>
+ -->
+  
+        <main>
     <aside class="blog-categories">
-        <h2>Kategorier</h2>
+        <h3>Kategorier</h3>
         <ul id="category-list"></ul>
     </aside>
-
-      <main>
   <div id="posts"></div>
 </main>
     
@@ -29,7 +72,7 @@
     <div class="footer-background">
         <footer>
             <div class="footer-header">
-                <h3 class="logo-style">CleanFreaks</h3>
+                <h3 class="logo-style">CleanFreak</h3>
             </div>
 
             <div class="footer-container">
@@ -63,5 +106,6 @@
         </footer>
     </div>
     <script type="module" src="./blog.js"></script>
+    <script type="module" src="./header.js"></script>
 </body>
 </html>
