@@ -82,7 +82,7 @@ export function showRandomBlogPosts(posts) {
         <a href="src/blog.html?name=${encodeURIComponent(post.slug)}"
         class="blog-card">
 
-            <img src=""
+            <img src="public/little-boy-is-all-caught-with-cake.jpg"
             alt="${post.title}"
             class="blog-card-image">
 
@@ -94,17 +94,19 @@ export function showRandomBlogPosts(posts) {
 document.addEventListener("DOMContentLoaded", () => {
     const searchForm = document.querySelector(".search");
     const searchInput = document.querySelector("#search-input");
+
     let allData = null;
 
     getAllSearchData().then(data => {
         allData = data;
+
         popularRecipeSlideshow(data.recipes);
         showRandomBlogPosts(data.blog_posts);
     });
 
     searchForm.addEventListener("submit", e => {
         e.preventDefault();
-        if (!allData) return console.warn("Datan laddas fortfarande...");
+        if (!allData) return;
         const results = searchInData(allData, searchInput.value);
         renderResults(results);
     });

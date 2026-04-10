@@ -60,8 +60,8 @@
       <!-- Sökfält (Startsida) -->
       <form class="search">
         <input type="search" id="search-input" placeholder="Vad vill du städa?" />
-        <button type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>
+        <button type="submit" aria-label="Sök">
+            <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
 
@@ -71,6 +71,7 @@
 
   <!-- MAIN -->
   <main>
+    
     <h2>Välj ett rum</h2>
 
     <!-- ROOMS -->
@@ -132,7 +133,7 @@
     <!-- Loader -->
     <div id="page-loader" class="loader-overlay" style="display: none;">
       <div class="loader-content">
-        <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+        <img src="public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
         <p>Vi städar fram sidan...</p>
       </div>
     </div>
