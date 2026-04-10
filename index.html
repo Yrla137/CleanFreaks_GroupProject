@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="sv">
+
 <head>
+  <link rel="preload" as="image" href="./public/cleanfreak_logo-eco-green.png">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clean Freaks</title>
 
   <!-- Font-Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
- <!-- Fonttype-link--> 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Fonttype-link-->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
   <link
     href="https://fonts.googleapis.com/css2?family=Cookie&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
@@ -17,46 +22,44 @@
   <!-- Egen CSS -->
   <link rel="stylesheet" href="src/mainPage/mainPage.css" />
   <link rel="stylesheet" href="src/header.css" />
+  <link rel="stylesheet" href="src/loader.css">
+
 </head>
 
 <body class="home">
-  
 
-<!-- HEADER -->
- <header class="header">
+
+  <!-- HEADER -->
+  <header class="header">
     <div class="top-bar">
 
-    <!-- Hamburgarmeny -->
-    <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <!-- Hamburgarmeny -->
+      <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <nav class="menu" id="main-menu" hidden>
-      <ul>
-        <li><a href="index.html">Hem</a></li>
-        <li><a href="src/blog.html">Blogginlägg</a></li>
-        <li><a href="src/aboutUs_contact.html">Om oss / Kontakta oss</a></li>
-        <li><a href="src/category.html">Kategorier</a></li>
-      </ul>
-    </nav>
+      <nav class="menu" id="main-menu" hidden>
+        <ul>
+          <li><a href="index.html">Hem</a></li>
+          <li><a href="src/blog.html">Blogginlägg</a></li>
+          <li><a href="src/aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+          <li><a href="src/category.html">Kategorier</a></li>
+        </ul>
+      </nav>
 
-  <!-- Logga -->
-    <div class="logo">
-      <a href="index.html">
-        <img src="public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
-        <h3 class="logo-style">CleanFreak</h3>
-      </a>
-    </div>
+      <!-- Logga -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+          <h3 class="logo-style">CleanFreak</h3>
+        </a>
+      </div>
 
       <!-- Sökfält (Startsida) -->
       <form class="search">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Vad vill du städa?"
-        />
+        <input type="search" id="search-input" placeholder="Vad vill du städa?" />
         <button type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -116,61 +119,73 @@
 
 
     <!-- EXTRA -->
-  <section class="recipes-section">
+    <section class="recipes-section">
       <h2>Populära recept</h2>
       <div class="recipe-slideshow"></div>
-  </section>
+    </section>
 
-  <section class="blog-section">
+    <section class="blog-section">
       <h2>Senaste blogginlägg...</h2>
       <div class="blog-posts"></div>
-  </section>
+    </section>
+
+    <!-- Loader -->
+    <div id="page-loader" class="loader-overlay" style="display: none;">
+      <div class="loader-content">
+        <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+        <p>Vi städar fram sidan...</p>
+      </div>
+    </div>
 
   </main>
 
 
-<!-- FOOTER -->
+  <!-- FOOTER -->
   <div class="footer-background">
     <footer>
-        <div class="footer-header">
-          <h3>CleanFreaks</h3>
+      <div class="footer-header">
+        <h3>CleanFreaks</h3>
+      </div>
+      <div class="footer-container">
+
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Hem</a></li>
+            <li><a href="src/blog.html">Blogg</a></li>
+
+          </ul>
         </div>
-  <div class="footer-container">
 
-    <div>
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="index.html">Hem</a></li>
-        <li><a href="src/blog.html">Blogg</a></li>
+        <div>
+          <h4>Följ oss</h4>
+          <ul>
+            <li><a href="https://www.facebook.com/cleanfreaks" target="_blank">Facebook</a></li>
+            <li><a href="https://www.instagram.com/cleanfreaks" target="_blank">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@cleanfreaks" target="_blank">Tiktok</a></li>
+            <li><a href="https://www.youtube.com/cleanfreaks" target="_blank">YouTube</a></li>
 
-      </ul>
-    </div>
+          </ul>
+        </div>
 
-     <div>
-      <h4>Följ oss</h4>
-      <ul>
-        <li><a href="https://www.facebook.com/cleanfreaks" target="_blank">Facebook</a></li>
-        <li><a href="https://www.instagram.com/cleanfreaks" target="_blank">Instagram</a></li>
-        <li><a href="https://www.tiktok.com/@cleanfreaks" target="_blank">Tiktok</a></li>
-        <li><a href="https://www.youtube.com/cleanfreaks" target="_blank">YouTube</a></li>
+        <div>
+          <a href="src/aboutUs_contact.html">
+            <h4>Kontakt</h4>
+          </a>
+          <p>info@cleanfreaks.se</p>
+        </div>
+      </div>
 
-      </ul>
-    </div>
-
-    <div>
-     <a href="src/aboutUs_contact.html"><h4>Kontakt</h4></a>
-      <p>info@cleanfreaks.se</p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2026 CleanFreaks</p>
-  </div>
+      <div class="footer-bottom">
+        <p>© 2026 CleanFreaks</p>
+      </div>
     </footer>
   </div>
 
-<script type="module" src="src/mainPage/mainPage_dom.js"></script>
-<script type="module" src="src/header.js" defer></script>
+  <script type="module" src="src/mainPage/mainPage_dom.js"></script>
+  <script type="module" src="src/header.js" defer></script>
+  <script src="src/loader.js"></script>
 
 </body>
+
 </html>
