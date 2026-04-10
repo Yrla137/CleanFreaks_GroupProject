@@ -94,17 +94,21 @@ export function showRandomBlogPosts(posts) {
 document.addEventListener("DOMContentLoaded", () => {
     const searchForm = document.querySelector(".search");
     const searchInput = document.querySelector("#search-input");
+
     let allData = null;
+    let dataReady = false;
 
     getAllSearchData().then(data => {
         allData = data;
+        dataReady = true;
+
         popularRecipeSlideshow(data.recipes);
         showRandomBlogPosts(data.blog_posts);
     });
 
     searchForm.addEventListener("submit", e => {
         e.preventDefault();
-        if (!allData) return console.warn("Datan laddas fortfarande...");
+        if (!allData) return;
         const results = searchInData(allData, searchInput.value);
         renderResults(results);
     });
