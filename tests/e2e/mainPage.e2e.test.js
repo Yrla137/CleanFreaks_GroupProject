@@ -9,8 +9,7 @@ describe("MainPage E2E", () => {
     await page.fill("#search-input", "kök");
     await page.getByRole("button", { name: /sök/i }).click();
  
-    await expect(page.locator("#search-results")).toBeVisible({ timeout: 1000 });
-    // timeout behövs i detta fall för att vänta på att sökresultaten renderas
+    await expect(page.locator(".results-grid h3").first()).toBeVisible();
     await expect(page.locator(".results-grid h3").first()).toHaveText("Kök");
   });
  
