@@ -71,18 +71,25 @@ export function showRandomBlogPosts(posts) {
     const container = document.querySelector(".blog-posts");
     if (!container) return;
 
-    const shuffled = [...posts].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
+    const selected = posts.filter(post => post.slug === "stada-med-barn");
+
+    if (!selected.length) {
+        container.innerHTML = "<p>Inget blogginlägg hittades.</p>";
+        return;
+    }
 
     container.innerHTML = selected.map(post => `
         <a href="src/blog.html?name=${encodeURIComponent(post.slug)}"
-           class="blog-card"
-           style="display:block; color:inherit; text-decoration:none;">
+        class="blog-card">
+
+            <img src=""
+            alt="${post.title}"
+            class="blog-card-image">
+
             <h4>${post.title}</h4>
         </a>
     `).join("");
 }
-
 // Initiering och event listeners
 document.addEventListener("DOMContentLoaded", () => {
     const searchForm = document.querySelector(".search");
