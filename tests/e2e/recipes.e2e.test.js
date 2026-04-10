@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Receptsidan E2E', () => {
 
     test('ska ladda och visa ett recept korrekt', async ({ page }) => {
-        await page.goto('http://127.0.0.1:5500/src/recipes/recipes.html?name=dusch-attika');
+        await page.goto('/src/recipes/recipes.html?name=dusch-attika');
 
         const title = page.locator('#recipes-title');
 
@@ -15,7 +15,7 @@ test.describe('Receptsidan E2E', () => {
     });
 
     test('ska visa felmeddelande om receptet inte finns', async ({ page }) => {
-        await page.goto('http://127.0.0.1:5500/src/recipes/recipes.html?name=finns-inte-123');
+        await page.goto('/src/recipes/recipes.html?name=finns-inte-123');
 
         const main = page.locator('main');
         await expect(main).toContainText('Hoppsan! Receptet hittades inte.');
