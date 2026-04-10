@@ -96,11 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector("#search-input");
 
     let allData = null;
-    let dataReady = false;
 
     getAllSearchData().then(data => {
         allData = data;
-        dataReady = true;
 
         popularRecipeSlideshow(data.recipes);
         showRandomBlogPosts(data.blog_posts);
