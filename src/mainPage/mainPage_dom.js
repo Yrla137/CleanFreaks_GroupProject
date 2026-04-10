@@ -82,7 +82,7 @@ export function showRandomBlogPosts(posts) {
         <a href="src/blog.html?name=${encodeURIComponent(post.slug)}"
         class="blog-card">
 
-            <img src=""
+            <img src="public/little-boy-is-all-caught-with-cake.jpg"
             alt="${post.title}"
             class="blog-card-image">
 
