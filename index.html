@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="sv">
+
 <head>
+  <link rel="preload" as="image" href="./public/cleanfreak_logo-eco-green.png">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clean Freaks</title>
 
   <!-- Font-Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
- <!-- Fonttype-link--> 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!-- Fonttype-link-->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
   <link
     href="https://fonts.googleapis.com/css2?family=Cookie&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
@@ -17,46 +22,44 @@
   <!-- Egen CSS -->
   <link rel="stylesheet" href="src/mainPage/mainPage.css" />
   <link rel="stylesheet" href="src/header.css" />
+  <link rel="stylesheet" href="src/loader.css">
+
 </head>
 
 <body class="home">
-  
 
-<!-- HEADER -->
- <header class="header">
+
+  <!-- HEADER -->
+  <header class="header">
     <div class="top-bar">
 
-    <!-- Hamburgarmeny -->
-    <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <!-- Hamburgarmeny -->
+      <button class="menu-btn" aria-label="Öppna meny" aria-expanded="false" aria-controls="main-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <nav class="menu" id="main-menu" hidden>
-      <ul>
-        <li><a href="index.html">Hem</a></li>
-        <li><a href="src/blog.html">Blogginlägg</a></li>
-        <li><a href="src/aboutUs_contact.html">Om oss / Kontakta oss</a></li>
-        <li><a href="src/category.html">Kategorier</a></li>
-      </ul>
-    </nav>
+      <nav class="menu" id="main-menu" hidden>
+        <ul>
+          <li><a href="index.html">Hem</a></li>
+          <li><a href="src/blog.html">Blogginlägg</a></li>
+          <li><a href="src/aboutUs_contact.html">Om oss / Kontakta oss</a></li>
+          <li><a href="src/category.html">Kategorier</a></li>
+        </ul>
+      </nav>
 
-  <!-- Logga -->
-    <div class="logo">
-      <a href="index.html">
-        <img src="public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
-        <h3 class="logo-style">CleanFreak</h3>
-      </a>
-    </div>
+      <!-- Logga -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="public/cleanfreak_logo-white.png" alt="CleanFreak logotyp" class="logo-image" />
+          <h3 class="logo-style">CleanFreak</h3>
+        </a>
+      </div>
 
       <!-- Sökfält (Startsida) -->
       <form class="search">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Vad vill du städa?"
-        />
+        <input type="search" id="search-input" placeholder="Vad vill du städa?" />
         <button type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -116,15 +119,23 @@
 
 
     <!-- EXTRA -->
-  <section class="recipes-section">
+    <section class="recipes-section">
       <h2>Populära recept</h2>
       <div class="recipe-slideshow"></div>
-  </section>
+    </section>
 
-  <section class="blog-section">
+    <section class="blog-section">
       <h2>Senaste blogginlägg...</h2>
       <div class="blog-posts"></div>
-  </section>
+    </section>
+
+    <!-- Loader -->
+    <div id="page-loader" class="loader-overlay" style="display: none;">
+      <div class="loader-content">
+        <img src="../public/cleanfreak_logo-eco-green.png" alt="Städar..." class="sweeping-brush">
+        <p>Vi städar fram sidan...</p>
+      </div>
+    </div>
 
   </main>
 
@@ -166,8 +177,10 @@
         </footer>
   </div>
 
-<script type="module" src="src/mainPage/mainPage_dom.js"></script>
-<script type="module" src="src/header.js" defer></script>
+  <script type="module" src="src/mainPage/mainPage_dom.js"></script>
+  <script type="module" src="src/header.js" defer></script>
+  <script src="src/loader.js"></script>
 
 </body>
+
 </html>
