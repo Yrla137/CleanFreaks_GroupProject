@@ -4,16 +4,16 @@ describe("MainPage E2E", () => {
  
   test("sökfunktion returnerar korrekt resultat / testar båda typer av sökningar", async ({ page }) => {
     await page.goto("/");
-    await page.waitForSelector(".search");
-
     await expect(page.locator(".search")).toBeVisible();
-
+ 
     await page.fill("#search-input", "kök");
     await page.getByRole("button", { name: /sök/i }).click();
-
-    await expect(page.locator(".results-grid h3").first()).toBeVisible();
+ 
+    await expect(page.locator(".results-grid")).toContainText("Kök");
+    // await expect(page.locator("#search-results")).toBeVisible({ timeout: 1000 });
+    // timeout behövs i detta fall för att vänta på att sökresultaten renderas
     await expect(page.locator(".results-grid h3").first()).toHaveText("Kök");
-  })
+  });
  
 
   test("rumsikonerna navigerar/uppdaterar DOM korrekt", async ({ page }) => {
