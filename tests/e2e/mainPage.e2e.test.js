@@ -10,11 +10,11 @@ describe("MainPage E2E", () => {
     await page.getByRole("button", { name: /sök/i }).click();
  
     await expect(page.locator("#search-results")).toBeVisible({ timeout: 1000 });
-    // timeout behövs för att vänta på att sökresultaten renderas
+    // timeout behövs i detta fall för att vänta på att sökresultaten renderas
     await expect(page.locator(".results-grid h3").first()).toHaveText("Kök");
   });
  
- 
+
   test("rumsikonerna navigerar/uppdaterar DOM korrekt", async ({ page }) => {
     await page.goto("/");
     await expect (page.locator(".rooms")).toBeVisible();
