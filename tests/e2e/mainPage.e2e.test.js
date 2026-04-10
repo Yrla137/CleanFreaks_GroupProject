@@ -7,7 +7,7 @@ describe("MainPage E2E", () => {
     await expect(page.locator(".search")).toBeVisible();
  
     await page.fill("#search-input", "kök");
-    await page.getByRole("button", { name: "Sök" }).click();
+    await page.getByRole("button", { name: /sök/i }).click();
  
     await expect(page.locator("#search-results")).toBeVisible({ timeout: 1000 });
     // timeout behövs för att vänta på att sökresultaten renderas
