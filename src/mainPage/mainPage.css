@@ -465,6 +465,10 @@ main > h2 {
     margin-right: auto;
     margin-bottom: calc(var(--space-5) + 1rem);
   }
+
+  .recipe-slideshow a{
+    gap: 20px;
+  }
   
   .blog-posts {
     gap: calc(var(--space-4) + 0.25rem);
