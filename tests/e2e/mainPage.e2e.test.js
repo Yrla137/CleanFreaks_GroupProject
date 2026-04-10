@@ -4,7 +4,7 @@ describe("MainPage E2E", () => {
  
   test("sökfunktion returnerar korrekt resultat / testar båda typer av sökningar", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.waitForSelector(".search");
 
     await expect(page.locator(".search")).toBeVisible();
 
